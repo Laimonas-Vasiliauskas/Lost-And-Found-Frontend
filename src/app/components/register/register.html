@@ -1,0 +1,19 @@
+<header>
+  <nav>
+    <div>
+      <h1 class="logo">Lost & Found</h1>
+    </div>
+    <div>
+      <button class="btn" id="login-btn">Prisijungti</button>
+    </div>
+  </nav>
+</header>
+  <div class="hero hero-form">
+    <form (submit)="register()">
+  <input [(ngModel)]="username" name="username" placeholder="Username" />
+  <input [(ngModel)]="email" name="email" placeholder="Email" />
+  <input [(ngModel)]="password" name="password" type="password" placeholder="Password" />
+  <button type="submit">Register</button>
+</form>
+  </div>
+

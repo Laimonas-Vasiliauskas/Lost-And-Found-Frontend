@@ -1,21 +1,25 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
-  selector: 'app-home',
+  selector: 'app-login',
   standalone: true,
-  imports: [CommonModule],
-  templateUrl: './home.html',
-  styleUrl: './home.css'
+  imports: [CommonModule, FormsModule],
+  templateUrl: './login.html',
+  styleUrl: './login.css',
 })
-export class Home {
+export class Login {
+  email = '';
+  password = '';
+
   constructor(private auth: AuthService) {}
 
   login() {
     this.auth.login({
-      email: 'string',
-      password: 'string'
+      email: this.email,
+      password: this.password
     }).subscribe({
       next: (res) => {
         console.log('LOGIN OK:', res);

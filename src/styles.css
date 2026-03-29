@@ -1,1 +1,290 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+    background-color: #fff7ed;
+    margin: 0;
+}
+header {
+    width: 100%;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background-color: white;
+}
+nav {
+    background-color: white;
+    margin: 0 auto;
+    padding: 16px 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+.nav-right {
+    display: flex;
+    gap: 10px;
+}
+.logo {
+    color: #f97316;
+}
+.back-link {
+    color: #f97316;
+    text-decoration: none;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: 0.2s ease;
+}
+.back-link:hover {
+    opacity: 0.7;
+}
+button{
+    background-color: #f97316;
+    color: white;
+    border: 1px solid #f97316;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.btn:hover, #login-btn:hover, #register-btn:hover {
+    transform: translateY(-2px) scale(1.08);
+}
+.btn:active, #login-btn:active, #register-btn:active {
+    transform: scale(0.96);
+}
+#register-form, #login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 50px auto;
+    width: 60%;
+}
+#register-form input,
+#login-form input,
+#form-register-btn,
+#form-login-btn {
+    width: 260px;
+    box-sizing: border-box;
+}
+#form-register-btn,
+#form-login-btn {
+    background-color: white;
+    color: #f97316;
+    border: 1px solid #f97316;
+    padding: 10px;
+}
+input {
+    padding: 10px;
+    border: 1px solid lightsalmon;
+    border-radius: 20px;
+    margin-bottom: 15px;
+}
+input {
+    padding: 10px;
+    border: 1px solid lightsalmon;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    width: 100%;
+}
+.hero {
+    background-color: #f97316;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #f97316;
+    border-radius: 30px;
+}
+.hero-home {
+    background-color: #f97316;
+    color: white;
+    text-align: center;
+    margin: 45px auto;
+    padding: 40px;
+    border-radius: 35px;
+    width: 55%;
+}
+.hero-form {
+    margin: 60px auto;
+    padding: 30px;
+    max-width: 400px;
+    width: 100%;
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin: 30px auto 0;
+    width: fit-content;
+    max-width: 100%;
+    background-color: lightsalmon;
+    padding: 20px;
+    border: 1px solid #f97316;
+    border-radius: 40px;
+    flex-wrap: wrap;
+}
+.search-container input,
+.search-container select,
+.search-container button {
+    height: 44px;
+    padding: 0 16px;
+    margin: 0;
+    border-radius: 22px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+.search-container input {
+    width: 180px;
+    border: none;
+}
+.search-container select {
+    width: 200px;
+    border: none;
+}
+.search-container button {
+    background-color: #f97316;
+    color: white;
+    border: none;
+    white-space: nowrap;
+}
+.category-list {
+    display: flex;
+    justify-content: center;
+    margin: 50px auto;
+    width: 60%;
+    gap: 20px;
+}
+.category-item {
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #f97316;
+    border-radius: 40px;
+    width: 160px;          
+    height: 180px;        
+    text-align: center;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+}
+.category-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+@keyframes bounce {
+    0% { transform: translateY(0); }
+    30% { transform: translateY(-10px); }
+    60% { transform: translateY(4px); }
+    100% { transform: translateY(0); }
+}
+.category-item:hover img {
+    animation: bounce 0.4s ease;
+}
+.categories h1 {
+    text-align: center;
+}
+.ads h1 {
+    text-align: center;
+}
+.ads-list {
+    display: flex;
+    justify-content: space-between;
+    margin: 50px auto;
+    width: 60%;
+    gap: 20px;
+}
+.ad-item {
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #f97316;
+    border-radius: 40px;
+    margin-bottom: 20px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+.ad-item:hover {
+    transform: translateY(-2px) scale(1.03);
+}
+.ad-content {
+    transition: filter 0.3s ease;
+}
+.ad-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 247, 237, 0.35);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.ad-item:hover .ad-overlay {
+    opacity: 1;
+}
+.ad-item:hover {
+    transform: scale(1);
+}
+.contact{
+    background-color: white;
+    font-size: larger;
+    text-align: center;
+    margin: 50px auto;
+    padding: 50px;
+    border: #f97316 solid 1px;
+    border-radius: 40px;
+    width: 60%;
+}
+.profile {
+    background-color: white;
+    font-size: larger;
+    text-align: center;
+    margin: 50px auto;
+    padding: 50px;
+    border: #f97316 solid 1px;
+    border-radius: 40px;
+    width: 60%;
+}
+.profile-ads {
+    background-color: white;
+    font-size: larger;
+    text-align: center;
+    margin: 50px auto;
+    padding: 50px;
+    border: #f97316 solid 1px;
+    border-radius: 40px;
+    width: 60%;
+    
+}
+#post-form {
+    background-color: white;
+    font-size: larger;
+    text-align: center;
+    margin: 50px auto;
+    padding: 50px;
+    border: #f97316 solid 1px;
+    border-radius: 40px;
+    width: 60%;
+}
+#description {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid lightsalmon;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    box-sizing: content-box;
+    resize: none;
+}

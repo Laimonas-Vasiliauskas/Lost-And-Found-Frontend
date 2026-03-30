@@ -1,0 +1,39 @@
+<header>
+  <nav>
+    <div class="nav-left">
+      <h1 class="logo">Lost & Found</h1>
+    </div>
+    <div class="nav-right">
+        <img src="assets/icons/icons8-customer-50.png" alt="Profilis">
+        <button class="btn" (click)="logout()" id="logout-btn">Atsijungti</button>
+    </div>
+  </nav>
+</header>
+<form id="post-form" (ngSubmit)="onSubmit()" #postForm="ngForm">
+    <h2>Įkelti Skelbimą</h2>
+    <select id="type" name="type" [(ngModel)]="formData.type" required>
+        <option value="">Pasirinkite tipą</option>
+        <option value="found">Radau</option>
+        <option value="lost">Pamečiau</option>
+    </select>
+
+    <select id="category" name="category" [(ngModel)]="formData.category" required>
+        <option value="">Pasirinkite kategoriją</option>
+        <option value="elektronika">Elektronika</option>
+        <option value="apranga">Apranga</option>
+        <option value="raktai">Raktai</option>
+        <option value="dokumentai">Dokumentai</option>
+    </select>
+
+    <input type="text" placeholder="Title" id="title" name="title" [(ngModel)]="formData.title" required>
+    
+
+    <textarea placeholder="Description" id="description" name="description" [(ngModel)]="formData.description"></textarea>
+
+    <input type="text" placeholder="Location" id="location" name="location" [(ngModel)]="formData.location">
+
+    <input type="file" id="image" name="image" (change)="onFileSelected($event)">
+
+    <button type="submit">Įkelti</button>
+</form>
+

@@ -5,13 +5,28 @@ import { Register } from './components/register/register';
 import { Profile } from './components/profile/profile';
 import { authGuard } from './guards/guards';
 import { guestGuard } from './guards/guest.guard';
+import { Category } from './components/category/category';
+import { CreatePost } from './components/create.post/create.post';
 
 export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
   {
     path: 'home', 
     component: Home 
   },
-  { 
+  {
+    path: 'create-post',
+    component: CreatePost
+  },
+  {
+    path: 'category',
+    component: Category
+  },
+  {
     path: 'register',
     component: Register 
   },

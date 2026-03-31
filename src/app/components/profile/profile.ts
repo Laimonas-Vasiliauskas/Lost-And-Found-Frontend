@@ -20,4 +20,12 @@ logout() {
   console.log('User logged out');
 }
   private user = JSON.parse(localStorage.getItem('user') || '{}');
+
+get username() {
+  return this.user.username || 'Guest';
+}
+
+get email() {
+  return this.user.email || 'Guest';
+}
 }

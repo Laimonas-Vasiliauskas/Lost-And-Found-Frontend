@@ -4,8 +4,18 @@
       <a href="/home" class="logo">Lost & Found</a>
     </div>
     <div class="nav-right">
-        <img src="assets/icons/icons8-customer-50.png" alt="Profilis">
-        <button class="btn" (click)="logout()" id="logout-btn">Atsijungti</button>
+      <div class="profile-container" (click)="toggleMenu()">
+        <img src="assets/icons/icons8-profile.gif" alt="Profilis">
+        @if (menuOpen) {
+          <div class="dropdown" (click)="$event.stopPropagation()">
+            <p class="username">Sveikas, {{ user?.username }}</p>
+
+            <button routerLink="/profile">Profilis</button>
+            <button routerLink="/create-post">Įkelti skelbimą</button>
+            <button class="btn" (click)="logout()" id="logout-btn">Atsijungti</button>
+          </div>
+        }
+      </div>
     </div>
   </nav>
 </header>

@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+
+
 
 export interface LoginRequest {
   email: string;
@@ -52,6 +55,7 @@ export class AuthService {
       tap(res => {
         localStorage.setItem('token', res.token);
         localStorage.setItem('user', JSON.stringify(res.user));
+        this.loggedIn.next(true);
       })
     );
   }
@@ -59,6 +63,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    this.loggedIn.next(false);
   }
 
   getToken(): string | null {
@@ -68,4 +73,8 @@ export class AuthService {
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
+
+  private loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
+  isLoggedIn$ = this.loggedIn.asObservable();
+
 }

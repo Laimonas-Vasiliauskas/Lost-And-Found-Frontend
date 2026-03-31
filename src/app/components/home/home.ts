@@ -1,16 +1,27 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './home.html',
   styleUrl: './home.css'
 })
-export class Home {
-  constructor(private auth: AuthService) {}
+export class Home implements OnInit {
+  user: any;
+  menuOpen = false;
+
+  constructor(public auth: AuthService) {}
+
+  ngOnInit() {
+  this.auth.isLoggedIn$.subscribe(() => {
+    const userData = localStorage.getItem('user');
+    this.user = userData ? JSON.parse(userData) : null;
+  });
+}
 
   login() {
     this.auth.login({
@@ -26,4 +37,13 @@ export class Home {
     });
   }
 
+  logout() {
+    this.auth.logout();
+    this.user = null;
+  }
+
+  toggleMenu() {
+  this.menuOpen = !this.menuOpen;
+  }
+  
 }

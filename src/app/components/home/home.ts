@@ -80,5 +80,8 @@ export class Home implements OnInit, OnDestroy {
     });
   }
   
+  get categoriesList() {
+    return this.categories().map((cat: any) => cat.CategoryName) || [];
+  }
 }
 

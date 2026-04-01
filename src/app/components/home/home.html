@@ -33,26 +33,17 @@
         kategoriją ir datą.
       </p>
 
-      @if (categories().length > 0) {
-        <ul class="category-list-inline">
-          @for (category of categories(); track category.CategoryID) {
-            <li>{{ category.CategoryName }}</li>
-          }
-        </ul>
-      }
-
       <div class="search-container">
         <search>
           <input type="text" placeholder="Ieškok daiktų...">
         </search>
 
         <select>
-          <option value="">Visos kategorijos</option>
-          <option value="elektronika">Elektronika</option>
-          <option value="apranga">Apranga</option>
-          <option value="raktai">Raktai</option>
-          <option value="dokumentai">Dokumentai</option>
-          <option value="visi">Visi</option>
+           @for (category of categories(); track category.categoryID) {
+            <option [value]="category.categoryID">
+              {{ category.categoryName }}
+            </option>
+          }
         </select>
 
         <button class="btn">Ieškoti</button>

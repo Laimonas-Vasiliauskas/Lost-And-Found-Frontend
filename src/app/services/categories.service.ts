@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Category {
-    CategoryID: number;
-    CategoryName: string;
+    categoryID: number;
+    categoryName: string;
 }
 
 @Injectable({

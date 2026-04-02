@@ -1,62 +1,66 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-create-post',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './create.post.html',
   styleUrl: './create.post.css',
 })
 export class CreatePost {
+  menuOpen = false;
   categoryID = 1;
   type = '';
   location = '';
   title = '';
   description = '';
 
-  menuOpen = signal(false);
-  user = signal<any>(null);
-
-  previewUrl: string | ArrayBuffer | null = null;
   selectedFile: File | null = null;
+  previewUrl: string | null = null;
+  
 
-  private http = inject(HttpClient);
-
-  constructor() {
-    const userData = localStorage.getItem('user');
-    this.user.set(userData ? JSON.parse(userData) : null);
-  }
-
-  toggleMenu() {
-    this.menuOpen.update(value => !value);
-  }
-
-  logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
-    this.user.set(null);
-    this.menuOpen.set(false);
-  }
+  constructor(private http: HttpClient) {}
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
 
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
-
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.previewUrl = reader.result;
-      };
-      reader.readAsDataURL(this.selectedFile);
+      this.previewUrl = URL.createObjectURL(this.selectedFile);
+    }
+    else {
+    // If the user clears the selection, reset these
+    this.selectedFile = null;
+    this.previewUrl = null;
     }
   }
 
+  uploadImage(token: string, adId: number) {
+    const formData = new FormData();
+    formData.append('file', this.selectedFile!);
+    formData.append('adId', adId.toString());
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.post<{ imageUrl: string }>(
+      'https://localhost:7062/api/ads/upload',
+      formData,
+      { headers }
+    );
+  }
+
   onSubmit() {
+    // 1. Check if file is empty
+    if (!this.selectedFile) {
+      alert('Prašome pasirinkti nuotrauką!'); // "Please select a photo!"
+      return;
+    }
+
     const token = localStorage.getItem('token');
     console.log('TOKEN:', token);
 
@@ -77,15 +81,46 @@ export class CreatePost {
       description: this.description
     };
 
-    this.http.post('https://localhost:7062/api/ads', body, { headers })
+    this.http.post<any>('https://localhost:7062/api/ads', body, { headers })
       .subscribe({
-        next: (res) => {
-          console.log('Skelbimas sukurtas:', res);
-          alert('Skelbimas sukurtas!');
+        next: (adRes) => {
+          console.log('Skelbimas sukurtas:', adRes);
+
+          const adId = adRes.adID;
+
+          if (this.selectedFile) {
+            this.uploadImage(token, adId).subscribe({
+              next: (uploadRes) => {
+                console.log('Nuotrauka įkelta:', uploadRes);
+                alert('Skelbimas su nuotrauka sukurtas!');
+
+                this.categoryID = 1;
+                this.type = '';
+                this.location = '';
+                this.title = '';
+                this.description = '';
+                this.selectedFile = null;
+                this.previewUrl = null;
+              },
+              error: (err) => {
+                console.error('Klaida įkeliant nuotrauką:', err);
+              }
+            });
+          } else {
+            alert('Skelbimas sukurtas!');
+          }
         },
         error: (err) => {
-          console.error('Klaida:', err);
+          console.error('Klaida kuriant skelbimą:', err);
         }
       });
   }
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
+  user = JSON.parse(localStorage.getItem('user') || '{}');
 }

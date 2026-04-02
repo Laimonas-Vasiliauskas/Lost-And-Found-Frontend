@@ -26,11 +26,29 @@
             }
         </div>
     </div>
-    
-<main>
-    <section class="ads">
-        <h1 id="category-title">Kategorija</h1>
-        <div class="ads-list" id="ads-list"></div>
-    </section>
-</main>
+
+
+    <div class="ads">
+        <h1 id="category-title">{{ selectedCategoryName() }}</h1>
+        
+        <div class="ads-list">
+            <div class="ad-item">
+            @for (ad of ads(); track ad.adID) {
+                <div class="ad-content">
+                    @if(ad.images?.length) {
+                        <img [src]="'https://localhost:7062/' + ad.images[0]"
+                        [alt]="ad.title"
+                        width="200">
+                    }
+                    <h3>{{ ad.title }}</h3>
+                    <p>{{ ad.description }}</p>
+                    <strong>{{ ad.price }} €</strong>
+                </div>
+            } @empty {
+                <p>Šioje kategorijoje skelbimų kol kas nėra.</p>
+            }
+            </div>
+        </div>
+    </div>
+
     

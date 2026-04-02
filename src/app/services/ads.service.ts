@@ -52,4 +52,9 @@ export class AdService {
 
     return this.http.post(this.apiUrl, data, { headers });
   }
+
+  getAdsByCategoryId(categoryId: string): Observable<Ad[]> {
+    return this.http.get<Ad[]>(`${this.apiUrl}/category/${categoryId}`);
+  }
+
 }

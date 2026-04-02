@@ -8,9 +8,9 @@
       <div class="profile-container" (click)="toggleMenu()">
         <img src="assets/icons/icons8-profile.gif" alt="Profilis" class="avatar">
 
-        @if (menuOpen()) {
+        @if (menuOpen) {
           <div class="dropdown" (click)="$event.stopPropagation()">
-            <p class="username">Sveikas, {{ user()?.username }}</p>
+            <p class="username">Sveikas, {{ user?.username }}</p>
             <button routerLink="/profile">Profilis</button>
             <button routerLink="/create-post">Įkelti skelbimą</button>
             <button (click)="logout()">Atsijungti</button>
@@ -32,11 +32,11 @@
 
   <select id="categoryID" name="categoryID" [(ngModel)]="categoryID" required>
     <option [ngValue]="0">Pasirinkite kategoriją</option>
-    <option [ngValue]="1">Elektronika</option>
-    <option [ngValue]="2">Apranga</option>
-    <option [ngValue]="3">Raktai</option>
-    <option [ngValue]="4">Dokumentai</option>
-    <option [ngValue]="5">Kita</option>
+    <option [ngValue]="2">Elektronika</option>
+    <option [ngValue]="3">Apranga</option>
+    <option [ngValue]="4">Raktai</option>
+    <option [ngValue]="5">Dokumentai</option>
+    <option [ngValue]="1">Kita</option>
   </select>
 
   <select id="location" name="location" [(ngModel)]="location" required>

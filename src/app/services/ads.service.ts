@@ -4,11 +4,12 @@ import { Observable } from 'rxjs';
 
 // 1. Rekomenduojama apsirašyti interfeisą (modelį)
 export interface Ad {
-  ID?: string;
+  adID?: number;
   title: string;
   description: string;
   location: string;
-  date: string;
+  type?: string;
+  createdAt?: string;
   images?: string[];
 }
 

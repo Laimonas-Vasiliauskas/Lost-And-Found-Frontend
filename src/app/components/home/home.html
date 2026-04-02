@@ -86,24 +86,24 @@
     <h1>Naujausi Skelbimai</h1>
 
     <div class="ads-list">
-      @for (ad of ads(); track ad.id || ad.categoryID) {
-        <div class="ad-item">
-          <div class="ad-overlay">
-            <button [routerLink]="['/addinfo', ad.ID]">Plačiau</button>
-          </div>
-          <div class="ad-content">
-            @if(ad.images?.length) {
-              <img [src]="'https://localhost:7062/' + ad.images[0]"
-                   [alt]="ad.title"
-                   width="200">
-            }
-            <h3>{{ ad.title }}</h3>
-            <p>{{ ad.description }}</p>
-            <p>{{ ad.location }}</p>
-          </div>
-        </div>
-      }
+  @for (ad of ads(); track ad.adID) {
+    <div class="ad-item">
+      <div class="ad-overlay">
+        <button [routerLink]="['/addinfo', ad.adID]">Plačiau</button>
+      </div>
+      <div class="ad-content">
+        @if(ad.images?.length) {
+          <img [src]="'https://localhost:7062/' + ad.images[0]"
+               [alt]="ad.title"
+               width="200">
+        }
+        <h3>{{ ad.title }}</h3>
+        <p>{{ ad.description }}</p>
+        <p>{{ ad.location }}</p>
+      </div>
     </div>
+  }
+</div>
   </div>
 
   <div class="contact">
@@ -138,4 +138,4 @@
     <button class="btn">Įkelti Skelbimą</button>
   </div>
 
-} 
+}

@@ -1,46 +1,40 @@
-<!-- Add loading state -->
 @if (isLoading) {
   <div class="loading">
     <p>Loading ad information...</p>
   </div>
-}
-
-<!-- Add error state -->
-@if (errorMessage && !isLoading) {
+} @else if (errorMessage) {
   <div class="error">
     <p>{{ errorMessage }}</p>
     <a routerLink="/home" class="back-link">← Back to Home</a>
   </div>
-}
-
-<!-- Show ad details when loaded -->
-@if (ad && !isLoading && !errorMessage) {
+} @else if (ad) {
   <div class="post-details">
-
     <a routerLink="/home" class="back-link">← Back</a>
 
     <div class="post-card">
-
-      <!-- Images -->
       <div class="post-images">
-        <img class="main-img"
-             [src]="ad.images?.length ? 'https://localhost:7062/' + ad.images[0] : 'assets/sample.jpg'"
-             [alt]="ad.title">
+        <img
+          class="main-img"
+          [src]="ad.images?.length ? 'https://localhost:7062/' + ad.images[0] : 'assets/sample.jpg'"
+          [alt]="ad.title"
+        >
 
-        <div class="thumbs">
-          @for (img of ad.images; track img) {
-            <img [src]="'https://localhost:7062/' + img" [alt]="ad.title">
-          }
-        </div>
+        @if (ad.images?.length) {
+          <div class="thumbs">
+            @for (img of ad.images; track img) {
+              <img [src]="'https://localhost:7062/' + img" [alt]="ad.title">
+            }
+          </div>
+        }
       </div>
 
-      <!-- Info -->
       <div class="post-info">
         <h1>{{ ad.title }}</h1>
 
         <div class="meta">
-          <span>📅 {{ ad.date | date }}</span>
+          <span>📅 {{ ad.createdAt | date:'yyyy-MM-dd HH:mm' }}</span>
           <span>📍 {{ ad.location }}</span>
+          <span>🏷️ {{ ad.type }}</span>
         </div>
 
         <div class="description">
@@ -50,7 +44,6 @@
 
         <button class="btn">Contact</button>
       </div>
-
     </div>
   </div>
 }

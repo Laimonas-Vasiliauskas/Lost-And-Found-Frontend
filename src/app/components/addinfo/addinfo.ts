@@ -1,53 +1,56 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AdService } from '../../services/ads.service';
 
 @Component({
   selector: 'app-addinfo',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './addinfo.html',
   styleUrl: './addinfo.css',
 })
 export class Addinfo implements OnInit {
-  ad: any = null; // Pradinė reikšmė null
-  isLoading: boolean = true; // Galima pridėti krovimosi indikatorių
-  errorMessage: string = '';
+  ad: any = null;
+  isLoading = true;
+  errorMessage = '';
 
   constructor(
     private route: ActivatedRoute,
-    private adService: AdService
+    private adService: AdService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
-  this.route.paramMap.subscribe(params => {
-    // Svarbu: 'id' turi sutapti su tavo route path: 'addinfo/:id'
-    const idFromUrl = params.get('ID'); 
-    
-    console.log('Reikšmė iš URL:', idFromUrl);
+    const id = this.route.snapshot.paramMap.get('id');
 
-    if (idFromUrl && idFromUrl !== 'undefined' && idFromUrl !== 'null') {
-      this.fetchAdData(idFromUrl);
-    } else {
-      console.error('Klaida: ID nerastas arba yra "undefined" tekstas');
+    if (!id) {
       this.errorMessage = 'Nepavyko atpažinti skelbimo ID.';
       this.isLoading = false;
+      this.cdr.detectChanges();
+      return;
     }
-  });
-}
+
+    this.fetchAdData(id);
+  }
 
   fetchAdData(id: string): void {
+    this.isLoading = true;
+    this.errorMessage = '';
+    this.cdr.detectChanges();
+
     this.adService.getAdById(id).subscribe({
       next: (data) => {
         this.ad = data;
         this.isLoading = false;
-        console.log('Duomenys gauti:', this.ad);
+        this.errorMessage = '';
+        this.cdr.detectChanges();
       },
       error: (err) => {
-        console.error('Klaida kraunant skelbimą:', err);
+        console.error(err);
         this.errorMessage = 'Nepavyko užkrauti skelbimo informacijos.';
         this.isLoading = false;
+        this.cdr.detectChanges();
       }
     });
   }

@@ -43,7 +43,7 @@ export const routes: Routes = [
     canActivate: [guestGuard]
   },
   {
-    path: 'addinfo',
-    component: Addinfo 
+  path: 'addinfo/:id',
+  component: Addinfo
   }
 ];

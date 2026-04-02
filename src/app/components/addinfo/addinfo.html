@@ -1,40 +1,56 @@
-<div class="post-details">
-
-  <!-- Atgal -->
-  <a routerLink="/home" class="back-link">← Atgal</a>
-
-  <div class="post-card">
-
-    <!-- Nuotraukos -->
-    <div class="post-images">
-      <img class="main-img" src="assets/sample.jpg" alt="">
-
-      <div class="thumbs">
-        <img src="assets/sample.jpg" alt="">
-        <img src="assets/sample2.jpg" alt="">
-        <img src="assets/sample3.jpg" alt="">
-      </div>
-    </div>
-
-    <!-- Info -->
-    <div class="post-info">
-      <h1>Skelbimo pavadinimas</h1>
-
-      <div class="meta">
-        <span>📅 2026-04-02</span>
-        <span>📍 Vilnius</span>
-      </div>
-
-      <div class="description">
-        <h3>Aprašymas</h3>
-        <p>
-          Čia bus pilnas skelbimo aprašymas. Gali būti ilgesnis tekstas apie prekę,
-          būklę, kainą, kontaktus ir kitą svarbią informaciją.
-        </p>
-      </div>
-
-      <button class="btn">Susisiekti</button>
-    </div>
-
+<!-- Add loading state -->
+@if (isLoading) {
+  <div class="loading">
+    <p>Loading ad information...</p>
   </div>
-</div>
+}
+
+<!-- Add error state -->
+@if (errorMessage && !isLoading) {
+  <div class="error">
+    <p>{{ errorMessage }}</p>
+    <a routerLink="/home" class="back-link">← Back to Home</a>
+  </div>
+}
+
+<!-- Show ad details when loaded -->
+@if (ad && !isLoading && !errorMessage) {
+  <div class="post-details">
+
+    <a routerLink="/home" class="back-link">← Back</a>
+
+    <div class="post-card">
+
+      <!-- Images -->
+      <div class="post-images">
+        <img class="main-img"
+             [src]="ad.images?.length ? 'https://localhost:7062/' + ad.images[0] : 'assets/sample.jpg'"
+             [alt]="ad.title">
+
+        <div class="thumbs">
+          @for (img of ad.images; track img) {
+            <img [src]="'https://localhost:7062/' + img" [alt]="ad.title">
+          }
+        </div>
+      </div>
+
+      <!-- Info -->
+      <div class="post-info">
+        <h1>{{ ad.title }}</h1>
+
+        <div class="meta">
+          <span>📅 {{ ad.date | date }}</span>
+          <span>📍 {{ ad.location }}</span>
+        </div>
+
+        <div class="description">
+          <h3>Description</h3>
+          <p>{{ ad.description }}</p>
+        </div>
+
+        <button class="btn">Contact</button>
+      </div>
+
+    </div>
+  </div>
+}

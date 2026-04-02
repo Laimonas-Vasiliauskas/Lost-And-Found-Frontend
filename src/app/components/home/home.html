@@ -89,13 +89,14 @@
       @for (ad of ads(); track ad.id || ad.categoryID) {
         <div class="ad-item">
           <div class="ad-overlay">
-            <button class="btn">Plačiau</button>
+            <button [routerLink]="['/addinfo', ad.ID]">Plačiau</button>
           </div>
           <div class="ad-content">
-            <img *ngIf="ad.images?.length"
-                 [src]="'https://localhost:7062/' + ad.images[0]"
-                 [alt]="ad.title"
-                 width="200">
+            @if(ad.images?.length) {
+              <img [src]="'https://localhost:7062/' + ad.images[0]"
+                   [alt]="ad.title"
+                   width="200">
+            }
             <h3>{{ ad.title }}</h3>
             <p>{{ ad.description }}</p>
             <p>{{ ad.location }}</p>
@@ -137,4 +138,4 @@
     <button class="btn">Įkelti Skelbimą</button>
   </div>
 
-}
+} 

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-// 1. Rekomenduojama apsirašyti interfeisą (modelį)
 export interface Ad {
   adID?: number;
+  userID?: number; // <-- PRIDĖK (labai svarbu)
   title: string;
   description: string;
   location: string;
@@ -17,28 +17,39 @@ export interface Ad {
   providedIn: 'root'
 })
 export class AdService {
-  // 2. Naudok kintamąjį visoms užklausoms, kad nereikėtų kartoti viso URL
   private readonly apiUrl = 'https://localhost:7062/api/Ads';
 
   constructor(private http: HttpClient) {}
 
-  // 3. Naudok Observable<Ad[]> vietoje <any[]>
+  // Visi skelbimai
   getAds(): Observable<Ad[]> {
     return this.http.get<Ad[]>(this.apiUrl);
   }
 
+  // VIENAS skelbimas
   getAdById(id: string): Observable<Ad> {
     return this.http.get<Ad>(`${this.apiUrl}/${id}`);
   }
 
-  createAd(data: Ad): Observable<Ad> {
+  // MANO skelbimai (🔥 svarbiausias profile puslapiui)
+  getMyAds(): Observable<Ad[]> {
     const token = localStorage.getItem('token');
 
-    // Patikra, ar tokenas egzistuoja (opcionalu, bet rekomenduojama)
     const headers = new HttpHeaders({
-      'Authorization': `Bearer ${token}`
+      Authorization: `Bearer ${token}`
     });
 
-    return this.http.post<Ad>(this.apiUrl, data, { headers });
+    return this.http.get<Ad[]>(`${this.apiUrl}/my`, { headers });
+  }
+
+  // Kurti skelbimą
+  createAd(data: Ad): Observable<any> {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.post(this.apiUrl, data, { headers });
   }
 }

@@ -19,16 +19,48 @@
     </div>
   </nav>
 </header>
+
 <main>
   <section class="profile">
     <h1>Mano profilis</h1>
     <div class="profile-info">
-      <p><strong>Vardas:</strong> <span id="user-name"> {{ username }}</span></p>
-      <p><strong>El. paštas:</strong> <span id="user-email"> {{ email }}</span></p>
+      <p><strong>Vardas:</strong> <span id="user-name">{{ username }}</span></p>
+      <p><strong>El. paštas:</strong> <span id="user-email">{{ email }}</span></p>
       <button class="btn" id="edit-profile-btn">Redaguoti profilį</button>
     </div>
   </section>
+
   <section class="profile-ads">
     <h1>Mano skelbimai</h1>
+
+    @if (ads().length > 0) {
+      <div class="ads-list">
+        @for (ad of ads(); track ad.adID || ad.AdID || ad.id) {
+          <div class="ad-item">
+            <div class="ad-content">
+              @if (ad.images?.length) {
+                <img
+                  [src]="'https://localhost:7062/' + ad.images[0]"
+                  [alt]="ad.title"
+                  width="200"
+                >
+              }
+
+              <h3>{{ ad.title }}</h3>
+              <p>{{ ad.description }}</p>
+              <small>Kategorija: {{ ad.categoryName || 'Nenurodyta' }}</small>
+            </div>
+
+            <div class="ad-actions">
+              <button [routerLink]="['/addinfo', ad.adID || ad.AdID || ad.id]">Peržiūrėti</button>
+              <button class="edit-btn">Redaguoti</button>
+              <button class="delete-btn">Ištrinti</button>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <p>Tu dar neturi sukurtų skelbimų.</p>
+    }
   </section>
 </main>

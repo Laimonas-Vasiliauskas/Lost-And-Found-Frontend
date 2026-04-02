@@ -20,7 +20,8 @@ export const routes: Routes = [
   },
   {
     path: 'create-post',
-    component: CreatePost
+    component: CreatePost,
+    canActivate: [authGuard]
   },
   {
     path: 'category',

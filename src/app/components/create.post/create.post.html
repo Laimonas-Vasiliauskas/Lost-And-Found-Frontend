@@ -1,39 +1,41 @@
 <header>
   <nav>
     <div class="nav-left">
-      <h1 class="logo">Lost & Found</h1>
-    </div>
-    <div class="nav-right">
-        <img src="assets/icons/icons8-customer-50.png" alt="Profilis">
-        <button class="btn" (click)="logout()" id="logout-btn">Atsijungti</button>
+      <h1 class="logo">Lost &amp; Found</h1>
     </div>
   </nav>
 </header>
+
 <form id="post-form" (ngSubmit)="onSubmit()" #postForm="ngForm">
-    <h2>Įkelti Skelbimą</h2>
-    <select id="type" name="type" [(ngModel)]="formData.type" required>
-        <option value="">Pasirinkite tipą</option>
-        <option value="found">Radau</option>
-        <option value="lost">Pamečiau</option>
-    </select>
+  <h2>Įkelti skelbimą</h2>
 
-    <select id="category" name="category" [(ngModel)]="formData.category" required>
-        <option value="">Pasirinkite kategoriją</option>
-        <option value="elektronika">Elektronika</option>
-        <option value="apranga">Apranga</option>
-        <option value="raktai">Raktai</option>
-        <option value="dokumentai">Dokumentai</option>
-    </select>
+  <select id="type" name="type" [(ngModel)]="type" required>
+    <option value="">Pasirinkite tipą</option>
+    <option value="found">Radau</option>
+    <option value="lost">Pamečiau</option>
+  </select>
 
-    <input type="text" placeholder="Title" id="title" name="title" [(ngModel)]="formData.title" required>
-    
+  <select id="categoryID" name="categoryID" [(ngModel)]="categoryID" required>
+    <option [ngValue]="0">Pasirinkite kategoriją</option>
+    <option [ngValue]="1">Elektronika</option>
+    <option [ngValue]="2">Apranga</option>
+    <option [ngValue]="3">Raktai</option>
+    <option [ngValue]="4">Dokumentai</option>
+    <option [ngValue]="5">Kita</option>
+  </select>
 
-    <textarea placeholder="Description" id="description" name="description" [(ngModel)]="formData.description"></textarea>
+  <select id="location" name="location" [(ngModel)]="location" required>
+    <option value="">Pasirinkite vietą</option>
+    <option value="Vilnius">Vilnius</option>
+    <option value="Kaunas">Kaunas</option>
+    <option value="Klaipėda">Klaipėda</option>
+    <option value="Šiauliai">Šiauliai</option>
+    <option value="Panevėžys">Panevėžys</option>
+  </select>
 
-    <input type="text" placeholder="Location" id="location" name="location" [(ngModel)]="formData.location">
+  <input type="text" placeholder="Title" id="title" name="title" [(ngModel)]="title" required />
 
-    <input type="file" id="image" name="image" (change)="onFileSelected($event)">
-
-    <button type="submit">Įkelti</button>
+  <textarea placeholder="Description" id="description" name="description" [(ngModel)]="description"> </textarea>3
+  
+  <button type="submit">Įkelti</button>
 </form>
-

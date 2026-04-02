@@ -34,8 +34,12 @@
   </select>
 
   <input type="text" placeholder="Title" id="title" name="title" [(ngModel)]="title" required />
+  <textarea placeholder="Description" id="description" name="description" [(ngModel)]="description" required></textarea>
+  <input type="file" accept="image/*" (change)="onFileSelected($event)" />
 
-  <textarea placeholder="Description" id="description" name="description" [(ngModel)]="description"> </textarea>3
+  <div *ngIf="previewUrl">
+    <img [src]="previewUrl" width="200" />
+  </div>
 
   <button type="submit">Įkelti</button>
 </form>

@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
 import { CategoriesService } from '../../services/categories.service';
+import { AdService } from '../../services/ads.service';
 
 @Component({
   selector: 'app-home',
@@ -17,14 +18,17 @@ export class Home implements OnInit, OnDestroy {
   user = signal<any>(null);
   menuOpen = signal(false);
   categories = signal<any[]>([]);
+  ads = signal<any[]>([]);
 
   public auth = inject(AuthService);
   private categoriesService = inject(CategoriesService);
   private destroy$ = new Subject<void>();
+  private adService = inject(AdService);
 
   ngOnInit() {
     // Iš karto kraunamos kategorijos (visad prieinamos)
     this.loadCategories();
+    this.loadAds();
     
     // Stebimas vartotojas
     this.auth.isLoggedIn$
@@ -79,9 +83,17 @@ export class Home implements OnInit, OnDestroy {
       }
     });
   }
+  loadAds() {
+  this.adService.getAds().subscribe({
+    next: (data) => {
+      this.ads.set(data);
+    },
+    error: (err) => {
+      console.error(err);
+    }
+  });
+}
   
-  get categoriesList() {
-    return this.categories().map((cat: any) => cat.CategoryName) || [];
-  }
+  
 }
 

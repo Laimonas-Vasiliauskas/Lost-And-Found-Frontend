@@ -7,6 +7,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 export class AdService {
   private apiUrl = 'https://localhost:7062/api/Ads';
 
+  getAds() {
+  return this.http.get<any[]>('https://localhost:7062/api/Ads');
+}
+
   constructor(private http: HttpClient) {}
 
   createAd(data: any) {

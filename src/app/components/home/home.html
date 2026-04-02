@@ -86,42 +86,22 @@
     <h1>Naujausi Skelbimai</h1>
 
     <div class="ads-list">
-      <div class="ad-item">
-        <div class="ad-overlay">
-          <button class="btn">Plačiau</button>
+      @for (ad of ads(); track ad.id || ad.categoryID) {
+        <div class="ad-item">
+          <div class="ad-overlay">
+            <button class="btn">Plačiau</button>
+          </div>
+          <div class="ad-content">
+            <img *ngIf="ad.images?.length"
+                 [src]="'https://localhost:7062/' + ad.images[0]"
+                 [alt]="ad.title"
+                 width="200">
+            <h3>{{ ad.title }}</h3>
+            <p>{{ ad.description }}</p>
+            <p>{{ ad.location }}</p>
+          </div>
         </div>
-        <div class="ad-content">
-          <img src="assets/images/phone.jpg" alt="Telefonas">
-          <h3>Rastas Telefonas</h3>
-          <p>
-            Rastas juodas iPhone 12 prie prekybos centro "Akropolis".
-          </p>
-        </div>
-      </div>
-
-      <div class="ad-item">
-        <div class="ad-overlay">
-          <button class="btn">Plačiau</button>
-        </div>
-        <div class="ad-content">
-          <img src="assets/images/jacket.jpg" alt="Striukė">
-          <h3>Rasta Striukė</h3>
-          <p>Rasta mėlyna žieminė striukė prie universiteto.</p>
-        </div>
-      </div>
-
-      <div class="ad-item">
-        <div class="ad-overlay">
-          <button class="btn">Plačiau</button>
-        </div>
-        <div class="ad-content">
-          <img src="assets/images/keys.jpg" alt="Raktai">
-          <h3>Rasti Raktai</h3>
-          <p>
-            Rasti raktai su raktų pakabuku prie miesto parko.
-          </p>
-        </div>
-      </div>
+      }
     </div>
   </div>
 

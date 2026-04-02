@@ -55,30 +55,13 @@
     <h1>Kategorijos</h1>
 
     <div class="category-list">
-      <a class="category-item" href="/category?type=elektronika">
-        <img src="assets/icons/icons8-electronics-94.png" alt="Elektronika">
-        <h3>Elektronika</h3>
-      </a>
+  @for (category of categories(); track category.categoryID) {
+    <a class="category-item" [routerLink]="['/category']" [queryParams]="{ id: category.categoryID }">
+      <img [src]="getIcon(category.categoryName)" [alt]="category.categoryName">
+      <h3>{{ category.categoryName }}</h3>
+    </a>
+  }
 
-      <a class="category-item" href="/category?type=apranga">
-        <img src="assets/icons/icons8-clothes-94.png" alt="Apranga">
-        <h3>Apranga</h3>
-      </a>
-
-      <a class="category-item" href="/category?type=raktai">
-        <img src="assets/icons/icons8-bunch-of-keys-94.png" alt="Raktai">
-        <h3>Raktai</h3>
-      </a>
-
-      <a class="category-item" href="/category?type=dokumentai">
-        <img src="assets/icons/icons8-card-wallet-94.png" alt="Dokumentai">
-        <h3>Dokumentai</h3>
-      </a>
-
-      <a class="category-item" href="/category?type=visi">
-        <img src="assets/icons/icons8-open-box-94.png" alt="Visi">
-        <h3>Visi</h3>
-      </a>
     </div>
   </div>
 

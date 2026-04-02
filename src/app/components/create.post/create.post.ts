@@ -17,7 +17,35 @@ export class CreatePost {
   title = '';
   description = '';
 
+  selectedFile: File | null = null;
+  previewUrl: string | null = null;
+
   constructor(private http: HttpClient) {}
+
+  onFileSelected(event: Event) {
+    const input = event.target as HTMLInputElement;
+
+    if (input.files && input.files.length > 0) {
+      this.selectedFile = input.files[0];
+      this.previewUrl = URL.createObjectURL(this.selectedFile);
+    }
+  }
+
+  uploadImage(token: string, adId: number) {
+    const formData = new FormData();
+    formData.append('file', this.selectedFile!);
+    formData.append('adId', adId.toString());
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.post<{ imageUrl: string }>(
+      'https://localhost:7062/api/ads/upload',
+      formData,
+      { headers }
+    );
+  }
 
   onSubmit() {
     const token = localStorage.getItem('token');
@@ -40,14 +68,37 @@ export class CreatePost {
       description: this.description
     };
 
-    this.http.post('https://localhost:7062/api/ads', body, { headers })
+    this.http.post<any>('https://localhost:7062/api/ads', body, { headers })
       .subscribe({
-        next: (res) => {
-          console.log('Skelbimas sukurtas:', res);
-          alert('Skelbimas sukurtas!');
+        next: (adRes) => {
+          console.log('Skelbimas sukurtas:', adRes);
+
+          const adId = adRes.adID;
+
+          if (this.selectedFile) {
+            this.uploadImage(token, adId).subscribe({
+              next: (uploadRes) => {
+                console.log('Nuotrauka įkelta:', uploadRes);
+                alert('Skelbimas su nuotrauka sukurtas!');
+
+                this.categoryID = 1;
+                this.type = '';
+                this.location = '';
+                this.title = '';
+                this.description = '';
+                this.selectedFile = null;
+                this.previewUrl = null;
+              },
+              error: (err) => {
+                console.error('Klaida įkeliant nuotrauką:', err);
+              }
+            });
+          } else {
+            alert('Skelbimas sukurtas!');
+          }
         },
         error: (err) => {
-          console.error('Klaida:', err);
+          console.error('Klaida kuriant skelbimą:', err);
         }
       });
   }

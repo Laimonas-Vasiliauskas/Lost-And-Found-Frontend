@@ -17,9 +17,6 @@ export class Profile {
   
   
 ) {}
-
-
-
 logout() {
   this.auth.logout();
   this.router.navigate(['/login']);

@@ -7,6 +7,7 @@ import { authGuard } from './guards/guards';
 import { guestGuard } from './guards/guest.guard';
 import { Category } from './components/category/category';
 import { CreatePost } from './components/create.post/create.post';
+import { Addinfo } from './components/addinfo/addinfo';
 
 export const routes: Routes = [
   {
@@ -40,5 +41,9 @@ export const routes: Routes = [
     path: 'login', 
     component: Login,
     canActivate: [guestGuard]
+  },
+  {
+    path: 'addinfo',
+    component: Addinfo 
   }
 ];

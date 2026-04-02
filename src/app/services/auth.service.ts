@@ -50,15 +50,19 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/register`, data);
   }
 
-  login(data: LoginRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, data).pipe(
-      tap(res => {
-        localStorage.setItem('token', res.token);
-        localStorage.setItem('user', JSON.stringify(res.user));
-        this.loggedIn.next(true);
-      })
-    );
-  }
+login(data: LoginRequest): Observable<AuthResponse> {
+  return this.http.post<AuthResponse>(`${this.apiUrl}/login`, data).pipe(
+    tap(res => {
+      const cleanToken = String(res.token)
+        .replace(/^Bearer\s+/i, '')
+        .replace(/^"|"$/g, '')
+        .trim();
+
+      localStorage.setItem('token', cleanToken);
+      localStorage.setItem('user', JSON.stringify(res.user));
+    })
+  );
+}
 
   logout(): void {
     localStorage.removeItem('token');

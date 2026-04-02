@@ -25,8 +25,20 @@ export class Login {
     }).subscribe({
       next: (res) => {
         console.log('LOGIN OK:', res);
-        localStorage.setItem('token', res.token);
+        console.log('RAW TOKEN:', res.token);
+        console.log('RAW TOKEN JSON:', JSON.stringify(res.token));
+
+        const cleanToken = String(res.token)
+          .replace(/^Bearer\s+/i, '')
+          .replace(/^"|"$/g, '')
+          .trim();
+
+        console.log('CLEAN TOKEN:', cleanToken);
+        console.log('CLEAN TOKEN JSON:', JSON.stringify(cleanToken));
+
+        localStorage.setItem('token', cleanToken);
         localStorage.setItem('user', JSON.stringify(res.user));
+
         this.router.navigate(['/profile']);
       },
       error: (err) => {

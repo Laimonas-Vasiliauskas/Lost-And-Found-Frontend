@@ -86,7 +86,7 @@
     <h1>Naujausi Skelbimai</h1>
 
     <div class="ads-list">
-  @for (ad of ads(); track ad.adID) {
+  @for (ad of ads() | slice:0:4; track ad.adID) {
     <div class="ad-item">
       <div class="ad-overlay">
         <button [routerLink]="['/addinfo', ad.adID]">Plačiau</button>
@@ -103,7 +103,7 @@
       </div>
     </div>
   }
-</div>
+    </div>
   </div>
 
   <div class="contact">

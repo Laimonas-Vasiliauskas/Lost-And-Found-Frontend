@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+
+
 
 export interface LoginRequest {
   email: string;
@@ -64,6 +67,7 @@ login(data: LoginRequest): Observable<AuthResponse> {
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    this.loggedIn.next(false);
   }
 
   getToken(): string | null {
@@ -73,4 +77,8 @@ login(data: LoginRequest): Observable<AuthResponse> {
   isLoggedIn(): boolean {
     return !!this.getToken();
   }
+
+  private loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());
+  isLoggedIn$ = this.loggedIn.asObservable();
+
 }

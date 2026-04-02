@@ -9,17 +9,22 @@ import { Component } from '@angular/core';
   styleUrl: './profile.css',
 })
 export class Profile {
+  menuOpen = false;
   constructor(
   private auth: AuthService,
   private router: Router
+  
+  
 ) {}
+
+
 
 logout() {
   this.auth.logout();
   this.router.navigate(['/login']);
   console.log('User logged out');
 }
-  private user = JSON.parse(localStorage.getItem('user') || '{}');
+  public user = JSON.parse(localStorage.getItem('user') || '{}');
 
 get username() {
   return this.user.username || 'Guest';
@@ -28,4 +33,8 @@ get username() {
 get email() {
   return this.user.email || 'Guest';
 }
+
+toggleMenu() {
+  this.menuOpen = !this.menuOpen;
+  }
 }

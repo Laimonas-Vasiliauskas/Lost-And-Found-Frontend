@@ -1,47 +1,36 @@
-    <header>
-        <nav>
-            <div class="nav-left">
-                <h1 class="logo">Lost & Found</h1>
-            </div>
-            <div class="nav-right">
-                <a href="/login" class="btn" id="login-btn">Prisijungti</a>
-                <a href="/register" class="btn" id="register-btn">Registruotis</a>
-                <button class="btn" id="create-post-btn">Ikelti Skelbima</button>
-            </div>
-        </nav>
-    </header>
-      <div class="categories">
+<header>
+    <nav>
+        <div class="nav-left">
+            <h1 class="logo">Lost & Found</h1>
+        </div>
+        <div class="nav-right">
+            <a href="/login" class="btn" id="login-btn">Prisijungti</a>
+            <a href="/register" class="btn" id="register-btn">Registruotis</a>
+            <button class="btn" id="create-post-btn">Ikelti Skelbima</button>
+        </div>
+    </nav>
+</header>
+
+    <div class="categories">
         <h1>Kategorijos</h1>
-    <div class="category-list">
-        <a class="category-item" href="home">
-            <img src="assets/icons/icons8-home.svg" alt="Pradžia">
-            <h3>Pradžia</h3>
-        </a>
-        <a class="category-item" href="category">
-            <img src="assets/icons/icons8-electronics-94.png" alt="Elektronika">
-            <h3>Elektronika</h3>
-        </a>
-        <a class="category-item" href="category">
-            <img src="assets/icons/icons8-clothes-94.png" alt="Apranga">
-            <h3>Apranga</h3>
-        </a>
-        <a class="category-item" href="categor">
-            <img src="assets/icons/icons8-bunch-of-keys-94.png" alt="Raktai">
-            <h3>Raktai</h3>
-        </a>
-        <a class="category-item" href="category">
-            <img src="assets/icons/icons8-card-wallet-94.png" alt="Dokumentai">
-            <h3>Dokumentai</h3>
-        </a>
-        <a class="category-item" href="category">
-            <img src="assets/icons/icons8-open-box-94.png" alt="Visi">
-            <h3>Visi</h3>
-        </a>
+        <div class="category-list">
+            <a class="category-item" href="home">
+                <img src="assets/icons/icons8-home.svg" alt="Pradžia">
+                <h3>Pradžia</h3>
+            </a>
+            @for (category of categories(); track category.categoryID) {
+            <a class="category-item" [routerLink]="['/category']" [queryParams]="{ id: category.categoryID }">
+            <img [src]="getCategoryIcon(category.categoryName)" [alt]="category.categoryName">
+            <h3>{{ category.categoryName }}</h3>
+            </a>
+            }
+        </div>
     </div>
-  </div>
-    <main>
-        <section class="ads">
-            <h1 id="category-title">Kategorija</h1>
-            <div class="ads-list" id="ads-list"></div>
-        </section>
-    </main>
+    
+<main>
+    <section class="ads">
+        <h1 id="category-title">Kategorija</h1>
+        <div class="ads-list" id="ads-list"></div>
+    </section>
+</main>
+    

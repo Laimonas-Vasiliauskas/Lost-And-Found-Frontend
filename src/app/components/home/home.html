@@ -57,12 +57,12 @@
     <div class="category-list">
   @for (category of categories(); track category.categoryID) {
     <a class="category-item" [routerLink]="['/category']" [queryParams]="{ id: category.categoryID }">
-      <img [src]="getIcon(category.categoryName)" [alt]="category.categoryName">
+      <img [src]="getCategoryIcon(category.categoryName)" [alt]="category.categoryName">
       <h3>{{ category.categoryName }}</h3>
     </a>
   }
 
-    </div>
+</div>
   </div>
 
   <div class="ads">

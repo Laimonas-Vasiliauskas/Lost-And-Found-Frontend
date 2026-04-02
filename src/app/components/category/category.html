@@ -27,13 +27,13 @@
         </div>
     </div>
 
-
     <div class="ads">
         <h1 id="category-title">{{ selectedCategoryName() }}</h1>
         
         <div class="ads-list">
-            <div class="ad-item">
             @for (ad of ads(); track ad.adID) {
+            <div class="ad-item">
+            
                 <div class="ad-content">
                     @if(ad.images?.length) {
                         <img [src]="'https://localhost:7062/' + ad.images[0]"
@@ -44,10 +44,11 @@
                     <p>{{ ad.description }}</p>
                     <strong>{{ ad.price }} €</strong>
                 </div>
-            } @empty {
+             
+            </div>
+        } @empty {
                 <p>Šioje kategorijoje skelbimų kol kas nėra.</p>
             }
-            </div>
         </div>
     </div>
 

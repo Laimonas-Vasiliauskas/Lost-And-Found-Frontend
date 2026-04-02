@@ -18,7 +18,7 @@ export class Category implements OnInit {
 
   // Servisai
   private categoriesService = inject(CategoriesService);
-  private adsService = inject(AdService); // Reikės susikurti/naudoti AdsService
+  private adService = inject(AdService); // Reikės susikurti/naudoti AdsService
   private route = inject(ActivatedRoute);
 
   ngOnInit(): void {
@@ -39,7 +39,7 @@ export class Category implements OnInit {
   loadAds(categoryId?: string) {
     if (categoryId) {
       // Krauname konkrečios kategorijos skelbimus
-      this.adsService.getAdsByCategoryId(categoryId).subscribe(data => {
+      this.adService.getAdsByCategoryId(categoryId).subscribe(data => {
         this.ads.set(data);
         // Galime atnaujinti antraštę pagal ID (surandant pavadinimą iš categories signalo)
         const cat = this.categories().find(c => c.categoryID === +categoryId);
@@ -47,7 +47,7 @@ export class Category implements OnInit {
       });
     } else {
       // Jei ID nėra, krauname visus
-      this.adsService.getAds().subscribe(data => {
+      this.adService.getAds().subscribe(data => {
         this.ads.set(data);
         this.selectedCategoryName.set('Visi skelbimai');
       });

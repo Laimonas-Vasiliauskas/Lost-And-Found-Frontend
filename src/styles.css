@@ -198,7 +198,7 @@ input {
 }
 .ads-list {
     display: flex;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin: 50px auto;
     width: 60%;
     gap: 20px;

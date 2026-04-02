@@ -3,6 +3,21 @@
     <div class="nav-left">
       <h1 class="logo">Lost &amp; Found</h1>
     </div>
+
+    <div class="nav-right">
+      <div class="profile-container" (click)="toggleMenu()">
+        <img src="assets/icons/icons8-profile.gif" alt="Profilis" class="avatar">
+
+        @if (menuOpen()) {
+          <div class="dropdown" (click)="$event.stopPropagation()">
+            <p class="username">Sveikas, {{ user()?.username }}</p>
+            <button routerLink="/profile">Profilis</button>
+            <button routerLink="/create-post">Įkelti skelbimą</button>
+            <button (click)="logout()">Atsijungti</button>
+          </div>
+        }
+      </div>
+    </div>
   </nav>
 </header>
 

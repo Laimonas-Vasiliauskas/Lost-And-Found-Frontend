@@ -2,14 +2,13 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 export const guestGuard = () => {
-  const router = inject(Router);
+    const router = inject(Router);
+    const token = localStorage.getItem('token');
 
-  const token = localStorage.getItem('token');
-
-  if (!token) {
+    if (!token) {
     return true;
-  }
+    }
 
-  router.navigate(['/profile']);
-  return false;
+    router.navigate(['/profile']);
+    return false;
 };

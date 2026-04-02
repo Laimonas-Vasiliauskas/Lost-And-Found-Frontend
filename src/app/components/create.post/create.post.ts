@@ -1,55 +1,54 @@
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-create-post',
-  imports: [FormsModule, CommonModule],
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './create.post.html',
   styleUrl: './create.post.css',
 })
 export class CreatePost {
-  formData = {
-    type: '',
-    category: '',
-    title: '',
-    description: '',
-    location: '',
-    image: null
-  };
+  categoryID = 1;
+  type = '';
+  location = '';
+  title = '';
+  description = '';
 
-  constructor(private router: Router) {}
-
-  onFileSelected(event: any) {
-    if (event.target.files.length > 0) {
-      this.formData.image = event.target.files[0];
-    }
-  }
+  constructor(private http: HttpClient) {}
 
   onSubmit() {
-    if (this.formData.type && this.formData.category && this.formData.title) {
-      console.log('Form submitted:', this.formData);
-      alert('Skelbimas sėkmingai įkeltas!');
-      this.resetForm();
-    } else {
-      alert('Prašome užpildyti visus reikalingus laukus');
+    const token = localStorage.getItem('token');
+    console.log('TOKEN:', token);
+
+    if (!token) {
+      console.error('Token nerastas');
+      return;
     }
-  }
 
-  logout() {
-    localStorage.removeItem('authToken');
-    this.router.navigate(['/login']);
-  }
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
 
-  resetForm() {
-    this.formData = {
-      type: '',
-      category: '',
-      title: '',
-      description: '',
-      location: '',
-      image: null
+    const body = {
+      categoryID: Number(this.categoryID),
+      type: this.type,
+      location: this.location,
+      title: this.title,
+      description: this.description
     };
+
+    this.http.post('https://localhost:7062/api/ads', body, { headers })
+      .subscribe({
+        next: (res) => {
+          console.log('Skelbimas sukurtas:', res);
+          alert('Skelbimas sukurtas!');
+        },
+        error: (err) => {
+          console.error('Klaida:', err);
+        }
+      });
   }
 }

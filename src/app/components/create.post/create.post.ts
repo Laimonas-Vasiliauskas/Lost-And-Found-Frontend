@@ -19,6 +19,7 @@ export class CreatePost {
 
   selectedFile: File | null = null;
   previewUrl: string | null = null;
+  
 
   constructor(private http: HttpClient) {}
 
@@ -28,6 +29,11 @@ export class CreatePost {
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
       this.previewUrl = URL.createObjectURL(this.selectedFile);
+    }
+    else {
+    // If the user clears the selection, reset these
+    this.selectedFile = null;
+    this.previewUrl = null;
     }
   }
 
@@ -48,6 +54,12 @@ export class CreatePost {
   }
 
   onSubmit() {
+    // 1. Check if file is empty
+    if (!this.selectedFile) {
+      alert('Prašome pasirinkti nuotrauką!'); // "Please select a photo!"
+      return;
+    }
+
     const token = localStorage.getItem('token');
     console.log('TOKEN:', token);
 

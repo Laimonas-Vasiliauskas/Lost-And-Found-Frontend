@@ -11,6 +11,7 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
   styleUrl: './category.css',
 })
 export class Category implements OnInit {
+  menuOpen = false;
   // Signalai duomenims
   categories = signal<CategoryModel[]>([]);
   ads = signal<any[]>([]); // Skelbimų sąrašas
@@ -37,24 +38,46 @@ export class Category implements OnInit {
   }
 
   loadAds(categoryId?: string) {
-    if (categoryId) {
-      // Krauname konkrečios kategorijos skelbimus
-      this.adService.getAdsByCategoryId(categoryId).subscribe(data => {
-        this.ads.set(data);
-        // Galime atnaujinti antraštę pagal ID (surandant pavadinimą iš categories signalo)
-        const cat = this.categories().find(c => c.categoryID === +categoryId);
-        if (cat) this.selectedCategoryName.set(cat.categoryName);
-      });
-    } else {
-      // Jei ID nėra, krauname visus
-      this.adService.getAds().subscribe(data => {
+  // Patikriname: ar ID neegzistuoja, arba ar ID yra lygus "1"
+  if (!categoryId || categoryId === '1') {
+    
+    // 1 variantas: Krauname VISUS skelbimus
+    this.adService.getAds().subscribe({
+      next: (data) => {
         this.ads.set(data);
         this.selectedCategoryName.set('Visi skelbimai');
-      });
-    }
+      },
+      error: (err) => console.error('Klaida kraunant visus skelbimus', err)
+    });
+
+  } else {
+    
+    // 2 variantas: Krauname specifinę kategoriją
+    this.adService.getAdsByCategoryId(categoryId).subscribe({
+      next: (data) => {
+        this.ads.set(data);
+        
+        // Surandame pavadinimą iš turimų kategorijų sąrašo
+        const cat = this.categories().find(c => c.categoryID === +categoryId);
+        if (cat) {
+          this.selectedCategoryName.set(cat.categoryName);
+        }
+      },
+      error: (err) => console.error('Klaida kraunant kategorijos skelbimus', err)
+    });
   }
+}
 
   getCategoryIcon(name: string) {
     return this.categoriesService.getIcon(name);
   }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
+  user = JSON.parse(localStorage.getItem('user') || '{}');
 }

@@ -33,21 +33,28 @@
         kategoriją ir datą.
       </p>
 
-      <div class="search-container">
-        <search>
-          <input type="text" placeholder="Ieškok daiktų...">
-        </search>
+ <div class="search-container">
+  <input
+    type="text"
+    [(ngModel)]="searchText"
+    (input)="applyFilters()"
+    placeholder="Ieškok daiktų..."
+  >
 
-        <select>
-           @for (category of categories(); track category.categoryID) {
-            <option [value]="category.categoryID">
-              {{ category.categoryName }}
-            </option>
-          }
-        </select>
+  <select
+    [(ngModel)]="selectedCategoryId"
+    (change)="applyFilters()"
+  >
+    <option value="">Visos kategorijos</option>
+    @for (category of categories(); track category.categoryID) {
+      <option [value]="category.categoryID">
+        {{ category.categoryName }}
+      </option>
+    }
+  </select>
 
-        <button class="btn">Ieškoti</button>
-      </div>
+  <button class="btn" (click)="applyFilters()">Ieškoti</button>
+</div>
     </div>
   </div>
 
@@ -68,17 +75,19 @@
   <div class="ads">
     <h1>Naujausi Skelbimai</h1>
 
-    <div class="ads-list">
-  @for (ad of ads() | slice:0:4; track ad.adID) {
+<div class="ads-list">
+  @for (ad of filteredAds() | slice:0:4; track ad.adID) {
     <div class="ad-item">
       <div class="ad-overlay">
         <button [routerLink]="['/addinfo', ad.adID]">Plačiau</button>
       </div>
       <div class="ad-content">
-        @if(ad.images?.length) {
-          <img [src]="'https://localhost:7062/' + ad.images[0]"
-               [alt]="ad.title"
-               width="200">
+        @if (ad.images?.length) {
+          <img
+            [src]="'https://localhost:7062/' + ad.images[0]"
+            [alt]="ad.title"
+            width="200"
+          >
         }
         <h3>{{ ad.title }}</h3>
         <p>{{ ad.description }}</p>
@@ -86,7 +95,7 @@
       </div>
     </div>
   }
-    </div>
+</div>
   </div>
 
   <div class="contact">

@@ -108,30 +108,30 @@ export class Home implements OnInit, OnDestroy {
   });
 }
 
-  applyFilters() {
-    console.log('FILTER RUN');
-    console.log('searchText:', this.searchText);
+applyFilters() {
+  console.log('selectedCategoryId:', this.selectedCategoryId);
+  console.log('all ads:', this.ads());
 
-    const text = this.searchText.toLowerCase().trim();
-    const categoryId = this.selectedCategoryId;
+  const text = this.searchText.toLowerCase().trim();
+  const categoryId = this.selectedCategoryId;
 
-    const filtered = this.ads().filter(ad => {
-      console.log('AD CHECK:', ad);
+  const filtered = this.ads().filter(ad => {
+    console.log('ad category:', ad.categoryID);
 
-      const matchesText =
-        !text ||
-        String(ad.title ?? '').toLowerCase().includes(text) ||
-        String(ad.description ?? '').toLowerCase().includes(text);
+    const matchesText =
+      !text ||
+      String(ad.title ?? '').toLowerCase().includes(text) ||
+      String(ad.description ?? '').toLowerCase().includes(text);
 
-      const matchesCategory =
-        !categoryId || String(ad.categoryID) === String(categoryId);
+    const matchesCategory =
+      !categoryId || String(ad.categoryID) === String(categoryId);
 
-      return matchesText && matchesCategory;
-    });
+    return matchesText && matchesCategory;
+  });
 
-    console.log('FILTERED ADS:', filtered);
-    this.filteredAds.set(filtered);
-  }
+  console.log('filtered ads:', filtered);
+  this.filteredAds.set(filtered);
+}
 
   getCategoryIcon(name: string) {
     return this.categoriesService.getIcon(name);

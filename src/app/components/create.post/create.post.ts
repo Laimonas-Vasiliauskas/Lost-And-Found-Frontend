@@ -82,7 +82,7 @@ export class CreatePost {
       description: this.description
     };
 
-    this.http.post<any>('http://localhost:7062/api/ads', body, { headers })
+    this.http.post<any>('https://localhost:7062/api/Ads', body, { headers })
       .subscribe({
         next: (adRes) => {
           console.log('Skelbimas sukurtas:', adRes);

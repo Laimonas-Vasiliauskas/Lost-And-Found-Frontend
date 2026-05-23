@@ -48,7 +48,7 @@
             
                 <div class="ad-content">
                     @if(ad.images?.length) {
-                        <img [src]="'https://localhost:7062/' + ad.images[0]"
+                        <img [src]="'https://localhost:7062/api/ads/image/' + ad.images[0]"
                         [alt]="ad.title"
                         width="200">
                     }

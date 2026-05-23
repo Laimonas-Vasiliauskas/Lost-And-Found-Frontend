@@ -12,21 +12,24 @@
     <a routerLink="/home" class="back-link">← Back</a>
 
     <div class="post-card">
-      <div class="post-images">
+<div class="post-images">
+  <img
+    class="main-img"
+    [src]="ad.images?.length ? 'http://localhost:5282/api/ads/image/' + ad.images[0] : 'assets/sample.jpg'"
+    [alt]="ad.title"
+  >
+
+  @if (ad.images?.length) {
+    <div class="thumbs">
+      @for (img of ad.images; track img) {
         <img
-          class="main-img"
-          [src]="ad.images?.length ? 'https://localhost:7062/' + ad.images[0] : 'assets/sample.jpg'"
+          [src]="'http://localhost:5282/api/ads/image/' + img"
           [alt]="ad.title"
         >
-
-        @if (ad.images?.length) {
-          <div class="thumbs">
-            @for (img of ad.images; track img) {
-              <img [src]="'https://localhost:7062/' + img" [alt]="ad.title">
-            }
-          </div>
-        }
-      </div>
+      }
+    </div>
+  }
+</div>
 
       <div class="post-info">
         <h1>{{ ad.title }}</h1>

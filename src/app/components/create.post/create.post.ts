@@ -49,7 +49,7 @@ export class CreatePost {
     });
 
     return this.http.post<{ imageUrl: string }>(
-      'https://localhost:7062/api/ads/upload',
+      'http://localhost:5282/api/ads/upload',
       formData,
       { headers }
     );
@@ -82,7 +82,7 @@ export class CreatePost {
       description: this.description
     };
 
-    this.http.post<any>('https://localhost:7062/api/ads', body, { headers })
+    this.http.post<any>('http://localhost:5282/api/ads', body, { headers })
       .subscribe({
         next: (adRes) => {
           console.log('Skelbimas sukurtas:', adRes);

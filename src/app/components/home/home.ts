@@ -1,6 +1,7 @@
 import { Component, OnInit, signal, inject, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
@@ -9,7 +10,8 @@ import { AdService } from '../../services/ads.service';
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterModule],
+  standalone: true,
+  imports: [CommonModule, RouterModule, FormsModule],
   templateUrl: './home.html',
   styleUrl: './home.css',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -19,6 +21,10 @@ export class Home implements OnInit, OnDestroy {
   menuOpen = signal(false);
   categories = signal<any[]>([]);
   ads = signal<any[]>([]);
+  filteredAds = signal<any[]>([]);
+
+  searchText = '';
+  selectedCategoryId = '';
 
   public auth = inject(AuthService);
   private categoriesService = inject(CategoriesService);
@@ -26,21 +32,20 @@ export class Home implements OnInit, OnDestroy {
   private adService = inject(AdService);
 
   ngOnInit() {
-    // Iš karto kraunamos kategorijos (visad prieinamos)
-    this.loadCategories();
-    this.loadAds();
-    
-    // Stebimas vartotojas
-    this.auth.isLoggedIn$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe(() => {
-        const userData = localStorage.getItem('user');
-        console.log('User data from localStorage:', userData); // DEBUG
-        
-        const parsedUser = userData ? JSON.parse(userData) : null;
-        this.user.set(parsedUser);
-      });
-  }
+  console.log('HOME INIT');
+  this.loadCategories();
+  this.loadAds();
+
+  this.auth.isLoggedIn$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(() => {
+      const userData = localStorage.getItem('user');
+      console.log('User data from localStorage:', userData);
+
+      const parsedUser = userData ? JSON.parse(userData) : null;
+      this.user.set(parsedUser);
+    });
+}
 
   ngOnDestroy() {
     this.destroy$.next();
@@ -65,6 +70,8 @@ export class Home implements OnInit, OnDestroy {
     this.auth.logout();
     this.user.set(null);
     this.categories.set([]);
+    this.ads.set([]);
+    this.filteredAds.set([]);
   }
 
   toggleMenu() {
@@ -72,33 +79,61 @@ export class Home implements OnInit, OnDestroy {
   }
 
   loadCategories() {
-    console.log('Loading categories...'); // DEBUG
-    this.categoriesService.getCategories().subscribe({
-      next: (data) => {
-        console.log('Categories loaded:', data); // DEBUG
-        this.categories.set(data);
-      },
-      error: (err) => {
-        console.error('Error loading categories:', err);
-      }
-    });
-  }
-  loadAds() {
-  this.adService.getAds().subscribe({
+  console.log('Loading categories...');
+
+  this.categoriesService.getCategories().subscribe({
     next: (data) => {
-      this.ads.set(data);
+      console.log('Categories loaded:', data);
+      this.categories.set(data);
     },
     error: (err) => {
-      console.error(err);
+      console.error('Error loading categories:', err);
     }
   });
 }
 
-getCategoryIcon(name: string) {
-    return this.categoriesService.getIcon(name);
-  }
+  loadAds() {
+  console.log('LOAD ADS START');
 
-  
-  
+  this.adService.getAds().subscribe({
+    next: (data) => {
+      console.log('ADS DATA FULL:', data);
+      console.log('FIRST AD:', data[0]);
+      this.ads.set(data);
+      this.filteredAds.set(data);
+    },
+    error: (err) => {
+      console.error('ADS ERROR:', err);
+    }
+  });
 }
 
+applyFilters() {
+  console.log('selectedCategoryId:', this.selectedCategoryId);
+  console.log('all ads:', this.ads());
+
+  const text = this.searchText.toLowerCase().trim();
+  const categoryId = this.selectedCategoryId;
+
+  const filtered = this.ads().filter(ad => {
+    console.log('ad category:', ad.categoryID);
+
+    const matchesText =
+      !text ||
+      String(ad.title ?? '').toLowerCase().includes(text) ||
+      String(ad.description ?? '').toLowerCase().includes(text);
+
+    const matchesCategory =
+      !categoryId || String(ad.categoryID) === String(categoryId);
+
+    return matchesText && matchesCategory;
+  });
+
+  console.log('filtered ads:', filtered);
+  this.filteredAds.set(filtered);
+}
+
+  getCategoryIcon(name: string) {
+    return this.categoriesService.getIcon(name);
+  }
+}

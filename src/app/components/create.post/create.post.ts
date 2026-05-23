@@ -49,7 +49,7 @@ export class CreatePost {
     });
 
     return this.http.post<{ imageUrl: string }>(
-      'http://localhost:7062/api/ads/upload',
+      'https://localhost:7062/api/ads/upload',
       formData,
       { headers }
     );

@@ -1,60 +1,216 @@
 <header>
   <nav>
+
     <div class="nav-left">
-      <h1 routerLink="/home" class="logo" style="cursor: pointer;">Lost & Found</h1>
+      <h1 routerLink="/home" class="logo">
+        Lost & Found
+      </h1>
     </div>
 
     <div class="nav-right">
-      <div class="profile-container" (click)="toggleMenu()">
-        <img src="assets/icons/icons8-profile.gif" alt="Profilis" class="avatar">
 
-        @if (menuOpen) {
-          <div class="dropdown" (click)="$event.stopPropagation()">
-            <p class="username">Sveikas, {{ user?.username }}</p>
-            <button routerLink="/profile">Profilis</button>
-            <button routerLink="/create-post">Įkelti skelbimą</button>
-            <button (click)="logout()">Atsijungti</button>
-          </div>
+      <div class="profile-container" (click)="toggleMenu()">
+
+        <img
+          src="assets/icons/icons8-profile.gif"
+          class="avatar">
+
+        @if(menuOpen){
+
+        <div
+          class="dropdown"
+          (click)="$event.stopPropagation()">
+
+          <p class="username">
+            Sveikas, {{ user?.username }}
+          </p>
+
+          <button routerLink="/profile">
+            Profilis
+          </button>
+
+          <button routerLink="/create-post">
+            Įkelti skelbimą
+          </button>
+
+          <button (click)="logout()">
+            Atsijungti
+          </button>
+
+        </div>
+
         }
+
       </div>
+
     </div>
+
   </nav>
 </header>
 
-<form id="post-form" (ngSubmit)="onSubmit()" #postForm="ngForm">
-  <h2>Įkelti skelbimą</h2>
 
-  <select id="type" name="type" [(ngModel)]="type" required>
-    <option value="">Pasirinkite tipą</option>
-    <option value="found">Radau</option>
-    <option value="lost">Pamečiau</option>
-  </select>
+<main class="create-page">
 
-  <select id="categoryID" name="categoryID" [(ngModel)]="categoryID" required>
-    <option [ngValue]="0">Pasirinkite kategoriją</option>
-    <option [ngValue]="2">Elektronika</option>
-    <option [ngValue]="3">Apranga</option>
-    <option [ngValue]="4">Raktai</option>
-    <option [ngValue]="5">Dokumentai</option>
-    <option [ngValue]="1">Kita</option>
-  </select>
+  <section class="hero">
 
-  <select id="location" name="location" [(ngModel)]="location" required>
-    <option value="">Pasirinkite vietą</option>
-    <option value="Vilnius">Vilnius</option>
-    <option value="Kaunas">Kaunas</option>
-    <option value="Klaipėda">Klaipėda</option>
-    <option value="Šiauliai">Šiauliai</option>
-    <option value="Panevėžys">Panevėžys</option>
-  </select>
+    <h1>Įkelk naują skelbimą</h1>
 
-  <input type="text" placeholder="Title" id="title" name="title" [(ngModel)]="title" required />
-  <textarea placeholder="Description" id="description" name="description" [(ngModel)]="description" required></textarea>
-  <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+    <p>
+      Radai arba pametei daiktą?
+      Sukurk skelbimą per kelias sekundes.
+    </p>
 
-  <div *ngIf="previewUrl">
-    <img [src]="previewUrl" width="200" />
-  </div>
+  </section>
 
-  <button type="submit">Įkelti</button>
-</form>
+
+  <form
+    id="post-form"
+    (ngSubmit)="onSubmit()"
+    #postForm="ngForm">
+
+    <div class="form-grid">
+
+      <!-- LEFT -->
+
+      <div>
+
+        <label>Pavadinimas</label>
+
+        <input
+          type="text"
+          id="title"
+          name="title"
+          [(ngModel)]="title"
+          required
+          placeholder="Pvz. Rasti juodi akiniai">
+
+        <label>Aprašymas</label>
+
+        <textarea
+          id="description"
+          name="description"
+          [(ngModel)]="description"
+          required
+          rows="8"
+          placeholder="Aprašyk daiktą...">
+        </textarea>
+
+      </div>
+
+
+      <!-- RIGHT -->
+
+      <div>
+
+        <label>Tipas</label>
+
+        <select
+          name="type"
+          [(ngModel)]="type">
+
+          <option value="">
+            Pasirinkite
+          </option>
+
+          <option value="found">
+            Radau
+          </option>
+
+          <option value="lost">
+            Pamečiau
+          </option>
+
+        </select>
+
+
+        <label>Kategorija</label>
+
+        <select
+          name="categoryID"
+          [(ngModel)]="categoryID">
+
+          <option [ngValue]="0">
+            Pasirinkite
+          </option>
+
+          <option [ngValue]="2">
+            Elektronika
+          </option>
+
+          <option [ngValue]="3">
+            Apranga
+          </option>
+
+          <option [ngValue]="4">
+            Raktai
+          </option>
+
+          <option [ngValue]="5">
+            Dokumentai
+          </option>
+
+          <option [ngValue]="1">
+            Kita
+          </option>
+
+        </select>
+
+
+        <label>Miestas</label>
+
+        <select
+          name="location"
+          [(ngModel)]="location">
+
+          <option value="">
+            Pasirinkite
+          </option>
+
+          <option>Vilnius</option>
+          <option>Kaunas</option>
+          <option>Klaipėda</option>
+          <option>Šiauliai</option>
+          <option>Panevėžys</option>
+
+        </select>
+
+
+        <label>Nuotrauka</label>
+
+        <div class="upload">
+
+          <input
+            type="file"
+            accept="image/*"
+            (change)="onFileSelected($event)">
+
+          <p>Pasirink nuotrauką</p>
+
+        </div>
+
+
+        <div
+          class="preview"
+          *ngIf="previewUrl">
+
+          <img
+            [src]="previewUrl">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="submit-btn"
+      type="submit">
+
+      Įkelti skelbimą
+
+    </button>
+
+  </form>
+
+</main>

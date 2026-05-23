@@ -1,0 +1,164 @@
+.create-page {
+
+  max-width: 1200px;
+
+  margin: auto;
+
+  padding: 50px;
+}
+
+/* HERO */
+
+.hero {
+
+  background: #ff7300;
+
+  color: white;
+
+  padding: 60px;
+
+  text-align: center;
+
+  border-radius: 40px;
+
+  margin-bottom: 40px;
+}
+
+.hero h1 {
+
+  font-size: 46px;
+
+  margin-bottom: 15px;
+}
+
+/* FORM */
+
+#post-form {
+
+  background: #f7f7f7;
+
+  border: 2px solid #ff7300;
+
+  border-radius: 40px;
+
+  padding: 50px;
+}
+
+.form-grid {
+
+  display: grid;
+
+  grid-template-columns: 2fr 1fr;
+
+  gap: 40px;
+}
+
+label {
+
+  display: block;
+
+  margin-bottom: 10px;
+
+  font-weight: 700;
+}
+
+input,
+textarea,
+select {
+
+  width: 100%;
+
+  padding: 16px;
+
+  margin-bottom: 25px;
+
+  border-radius: 20px;
+
+  border: 2px solid #ffd0b4;
+
+  background: white;
+}
+
+textarea {
+
+  resize: none;
+
+  min-height: 220px;
+}
+
+.upload {
+
+  border: 2px dashed #ff7300;
+
+  border-radius: 25px;
+
+  padding: 30px;
+
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.preview {
+
+  margin-top: 20px;
+}
+
+.preview img {
+
+  width: 100%;
+
+  border-radius: 20px;
+
+  object-fit: cover;
+}
+
+.submit-btn {
+
+  width: 100%;
+
+  margin-top: 40px;
+
+  background: #ff7300;
+
+  color: white;
+
+  border: none;
+
+  padding: 20px;
+
+  border-radius: 25px;
+
+  font-size: 18px;
+
+  cursor: pointer;
+}
+
+.submit-btn:hover {
+
+  transform: translateY(-2px);
+}
+
+/* MOBILE */
+
+@media (max-width: 900px) {
+
+.form-grid {
+
+grid-template-columns: 1fr;
+
+}
+
+.hero {
+
+padding: 40px;
+
+}
+
+.hero h1 {
+
+font-size: 34px;
+
+}
+
+}

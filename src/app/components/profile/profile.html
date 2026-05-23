@@ -1,66 +1,166 @@
 <header>
   <nav>
     <div class="nav-left">
-      <h1 routerLink="/home" class="logo" style="cursor: pointer;">Lost & Found</h1>
+      <h1 routerLink="/home" class="logo">
+        Lost & Found
+      </h1>
     </div>
+
     <div class="nav-right">
       <div class="profile-container" (click)="toggleMenu()">
-        <img src="assets/icons/icons8-profile.gif" alt="Profilis">
-        @if (menuOpen) {
-          <div class="dropdown" (click)="$event.stopPropagation()">
-            <p class="username">Sveikas, {{ user?.username }}</p>
+        <img src="assets/icons/icons8-profile.gif">
 
-            <button routerLink="/profile">Profilis</button>
-            <button routerLink="/create-post">Įkelti skelbimą</button>
-            <button class="btn" (click)="logout()" id="logout-btn">Atsijungti</button>
-          </div>
+        @if(menuOpen){
+        <div class="dropdown" (click)="$event.stopPropagation()">
+
+          <p class="username">
+            Sveikas, {{ user?.username }}
+          </p>
+
+          <button routerLink="/profile">
+            Profilis
+          </button>
+
+          <button routerLink="/create-post">
+            Įkelti skelbimą
+          </button>
+
+          <button
+            class="logout-btn"
+            (click)="logout()">
+            Atsijungti
+          </button>
+
+        </div>
         }
       </div>
     </div>
   </nav>
 </header>
 
-<main>
-  <section class="profile">
-    <h1>Mano profilis</h1>
-    <div class="profile-info">
-      <p><strong>Vardas:</strong> <span id="user-name">{{ username }}</span></p>
-      <p><strong>El. paštas:</strong> <span id="user-email">{{ email }}</span></p>
-      <button class="btn" id="edit-profile-btn">Redaguoti profilį</button>
+
+<main class="profile-page">
+
+  <!-- HERO -->
+
+  <section class="profile-hero">
+
+    <div class="avatar">
+      <img
+        src="assets/icons/icons8-profile.gif"
+        alt="profile">
     </div>
+
+    <div class="hero-info">
+
+      <h1>{{ username }}</h1>
+
+      <p>{{ email }}</p>
+
+      <div class="hero-buttons">
+        <button id="edit-profile-btn">
+          Redaguoti profilį
+        </button>
+
+        <button routerLink="/create-post">
+          Naujas skelbimas
+        </button>
+      </div>
+
+    </div>
+
   </section>
 
+
+  <!-- STATS -->
+
+  <section class="stats">
+
+    <div class="stat-card">
+      <h2>{{ ads().length }}</h2>
+      <span>Skelbimų</span>
+    </div>
+
+    <div class="stat-card">
+      <h2>0</h2>
+      <span>Rasta</span>
+    </div>
+
+    <div class="stat-card">
+      <h2>0</h2>
+      <span>Pamesta</span>
+    </div>
+
+  </section>
+
+
+  <!-- ADS -->
+
   <section class="profile-ads">
+
     <h1>Mano skelbimai</h1>
 
     @if (ads().length > 0) {
-      <div class="ads-list">
-        @for (ad of ads(); track ad.adID || ad.AdID || ad.id) {
-          <div class="ad-item">
-            <div class="ad-content">
-              @if (ad.images?.length) {
-                <img
-                  [src]="'https://localhost:7062/' + ad.images[0]"
-                  [alt]="ad.title"
-                  width="200"
-                >
-              }
 
-              <h3>{{ ad.title }}</h3>
-              <p>{{ ad.description }}</p>
-              <small>Kategorija: {{ ad.categoryName || 'Nenurodyta' }}</small>
-            </div>
+      <div class="ads-grid">
 
-            <div class="ad-actions">
-              <button [routerLink]="['/addinfo', ad.adID || ad.AdID || ad.id]">Peržiūrėti</button>
-              <button class="edit-btn">Redaguoti</button>
-              <button class="delete-btn">Ištrinti</button>
-            </div>
+        @for(ad of ads(); track ad.adID || ad.AdID || ad.id){
+
+        <div class="ad-card">
+
+          @if(ad.images?.length){
+          <img
+            [src]="'https://localhost:7062/' + ad.images[0]"
+            [alt]="ad.title">
+          }
+
+          <div class="card-content">
+
+            <h3>{{ ad.title }}</h3>
+
+            <p>
+              {{ ad.description }}
+            </p>
+
+            <small>
+              {{ ad.categoryName }}
+            </small>
+
           </div>
+
+          <div class="card-buttons">
+
+            <button
+              [routerLink]="['/addinfo', ad.adID || ad.AdID || ad.id]">
+
+              Peržiūrėti
+
+            </button>
+
+            <button class="edit-btn">
+              Redaguoti
+            </button>
+
+            <button class="delete-btn">
+              Ištrinti
+            </button>
+
+          </div>
+
+        </div>
+
         }
+
       </div>
+
     } @else {
-      <p>Tu dar neturi sukurtų skelbimų.</p>
+
+      <div class="empty">
+        Neturi sukurtų skelbimų
+      </div>
+
     }
+
   </section>
+
 </main>

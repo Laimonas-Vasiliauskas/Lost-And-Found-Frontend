@@ -41,17 +41,7 @@
     placeholder="Ieškok daiktų..."
   >
 
-  <select
-    [(ngModel)]="selectedCategoryId"
-    (change)="applyFilters()"
-  >
-    <option value="">Visos kategorijos</option>
-    @for (category of categories(); track category.categoryID) {
-      <option [value]="category.categoryID">
-        {{ category.categoryName }}
-      </option>
-    }
-  </select>
+  
 
   <button class="btn" (click)="applyFilters()">Ieškoti</button>
 </div>

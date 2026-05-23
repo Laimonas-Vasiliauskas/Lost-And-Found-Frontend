@@ -60,6 +60,8 @@ login(data: LoginRequest): Observable<AuthResponse> {
 
       localStorage.setItem('token', cleanToken);
       localStorage.setItem('user', JSON.stringify(res.user));
+
+      this.loggedIn.next(true);
     })
   );
 }

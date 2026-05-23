@@ -42,7 +42,7 @@ export interface AuthResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:5282/api/Auth';
+  private apiUrl = 'http://localhost:7062/api/Auth';
 
   constructor(private http: HttpClient) {}
 

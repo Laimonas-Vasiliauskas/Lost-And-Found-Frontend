@@ -15,7 +15,7 @@
 <div class="post-images">
   <img
     class="main-img"
-    [src]="ad.images?.length ? 'http://localhost:5282/api/ads/image/' + ad.images[0] : 'assets/sample.jpg'"
+    [src]="ad.images?.length ? 'http://localhost:7062/api/ads/image/' + ad.images[0] : 'assets/sample.jpg'"
     [alt]="ad.title"
   >
 
@@ -23,7 +23,7 @@
     <div class="thumbs">
       @for (img of ad.images; track img) {
         <img
-          [src]="'http://localhost:5282/api/ads/image/' + img"
+          [src]="'http://localhost:7062/api/ads/image/' + img"
           [alt]="ad.title"
         >
       }

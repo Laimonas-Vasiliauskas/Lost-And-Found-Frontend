@@ -17,7 +17,7 @@ export interface Ad {
   providedIn: 'root'
 })
 export class AdService {
-  private readonly apiUrl = 'http://localhost:5282/api/Ads';
+  private readonly apiUrl = 'https://localhost:7062/api/Ads';
 
   constructor(private http: HttpClient) {}
 

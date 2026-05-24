@@ -1,26 +1,105 @@
 <header>
   <nav>
-    <div>
-      <h1 routerLink="/home" class="logo" style="cursor: pointer;">Lost & Found</h1>
-    </div>
-    <div>
-      <button routerLink="/login">Prisijungti</button>
-    </div>
+    <h1 routerLink="/home" class="logo">
+      Lost & Found
+    </h1>
+
+    <button routerLink="/login" class="login-btn">
+      Prisijungti
+    </button>
   </nav>
 </header>
-  <div class="hero hero-form">
-    <form (ngSubmit)="register()">
-  @if (errorMessage) {
-    <p class="error-message">{{ errorMessage }}</p>
-  }
 
-  <input [(ngModel)]="firstname" name="firstname" placeholder="Vardas" required />
-  <input [(ngModel)]="lastname" name="lastname" placeholder="Pavardė" required />
-  <input [(ngModel)]="username" name="username" placeholder="Vartotojo vardas" required />
-  <input [(ngModel)]="email" name="email" placeholder="El. paštas" required />
-  <input [(ngModel)]="password" name="password" type="password" placeholder="Slaptažodis" required />
-  <input [(ngModel)]="phonenumber" name="phonenumber" placeholder="Tel. numeris" required />
-  <input [(ngModel)]="city" name="city" placeholder="Miestas" required />
-  <button type="submit">Register</button>
-</form>
-  </div>
+<div class="hero hero-form">
+
+  <form (ngSubmit)="register()">
+
+    @if (errorMessage) {
+      <div class="error-message">
+        {{ errorMessage }}
+      </div>
+    }
+
+    <div class="row">
+
+      <div class="input-group">
+        <label>Vardas</label>
+        <input
+          [(ngModel)]="firstname"
+          name="firstname"
+          placeholder="Įveskite vardą"
+          required
+        />
+      </div>
+
+      <div class="input-group">
+        <label>Pavardė</label>
+        <input
+          [(ngModel)]="lastname"
+          name="lastname"
+          placeholder="Įveskite pavardę"
+          required
+        />
+      </div>
+
+    </div>
+
+    <div class="input-group">
+      <label>Vartotojo vardas</label>
+      <input
+        [(ngModel)]="username"
+        name="username"
+        placeholder="Įveskite vartotojo vardą"
+        required
+      />
+    </div>
+
+    <div class="input-group">
+      <label>El. paštas</label>
+      <input
+        [(ngModel)]="email"
+        name="email"
+        type="email"
+        placeholder="Įveskite el. paštą"
+        required
+      />
+    </div>
+
+    <div class="input-group">
+      <label>Slaptažodis</label>
+      <input
+        [(ngModel)]="password"
+        name="password"
+        type="password"
+        placeholder="Įveskite slaptažodį"
+        required
+      />
+    </div>
+
+    <div class="input-group">
+      <label>Tel. numeris</label>
+      <input
+        [(ngModel)]="phonenumber"
+        name="phonenumber"
+        placeholder="Įveskite telefono numerį"
+        required
+      />
+    </div>
+
+    <div class="input-group">
+      <label>Miestas</label>
+      <input
+        [(ngModel)]="city"
+        name="city"
+        placeholder="Įveskite miestą"
+        required
+      />
+    </div>
+
+    <button type="submit" class="submit-btn">
+      Registruotis
+    </button>
+
+  </form>
+
+</div>

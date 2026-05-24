@@ -10,9 +10,13 @@
 </header>
   <div class="hero hero-form">
     <form (submit)="register()">
+  <input [(ngModel)]="firstname" name="firstname" placeholder="Firstname" />
+  <input [(ngModel)]="lastname" name="lastname" placeholder="Lastname" />
   <input [(ngModel)]="username" name="username" placeholder="Username" />
   <input [(ngModel)]="email" name="email" placeholder="Email" />
   <input [(ngModel)]="password" name="password" type="password" placeholder="Password" />
+  <input [(ngModel)]="phonenumber" name="phonenumber" placeholder="Phonenumber" />
+  <input [(ngModel)]="city" name="city" placeholder="City" />
   <button type="submit">Register</button>
 </form>
   </div>

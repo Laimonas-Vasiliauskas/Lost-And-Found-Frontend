@@ -22,9 +22,13 @@ export interface LoginResponse {
 }
 
 export interface RegisterRequest {
+  firstname: string;
+  lastname: string;
   username: string;
   email: string;
   password: string;
+  phonenumber: string;
+  city: string;
 }
 
 export interface AuthResponse {

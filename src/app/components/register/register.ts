@@ -9,18 +9,25 @@ import { RouterModule } from '@angular/router';
   imports: [FormsModule, RouterModule]
 })
 export class Register {
-
+  firstname = '';
+  lastname = '';
   username = '';
   email = '';
   password = '';
+  phonenumber ='';
+  city ='';
 
   constructor(private http: HttpClient) {}
 
   register() {
     const data = {
+      firstname: this.firstname,
+      lastname: this.lastname,
       username: this.username,
       email: this.email,
-      password: this.password
+      password: this.password,
+      phonenumber: this.phonenumber,
+      city: this.city
     };
 
     this.http.post('https://localhost:7062/api/auth/register', data)

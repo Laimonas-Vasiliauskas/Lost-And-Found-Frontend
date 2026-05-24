@@ -15,8 +15,12 @@ export interface LoginResponse {
   token: string;
   user: {
     userID: number;
+    firstname: string;
+    lastname: string;
     username: string;
     email: string;
+    phonenumber: string;
+    city: string;
     createdAt: string;
   };
 }
@@ -36,8 +40,12 @@ export interface AuthResponse {
   token: string;
   user: {
     userID: number;
+    firstname: string;
+    lastname: string;
     username: string;
     email: string;
+    phonenumber: string;
+    city: string;
     createdAt: string;
   };
 }

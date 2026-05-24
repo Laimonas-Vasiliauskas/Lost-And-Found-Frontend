@@ -65,6 +65,22 @@ loadUserAds(): void {
     return this.user.email || 'Guest';
   }
 
+  get firstname() {
+    return this.user.firstname || 'Guest';
+  }
+
+  get lastname() {
+    return this.user.lastname || 'Guest';
+  }
+
+  get phonenumber() {
+    return this.user.phonenumber || 'Guest';
+  }
+
+  get city() {
+    return this.user.city || 'Guest';
+  }
+
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }

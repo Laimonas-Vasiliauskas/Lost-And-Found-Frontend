@@ -1,192 +1,265 @@
-main {
-  background: #ece6df;
-  min-height: 100vh;
+main{
+  background:#ece6df;
+  min-height:100vh;
 }
 
-.profile-page {
-  max-width: 1200px;
-  margin: auto;
-  padding: 40px;
+.profile-page{
+  max-width:1100px;
+  margin:auto;
+  padding:40px 20px;
 }
 
 /* HERO */
 
-.profile-hero {
+.profile-hero{
+  background:#ff7300;
 
-  background: #ff7300;
+  border-radius:32px;
 
-  border-radius: 40px;
+  padding:50px;
 
-  padding: 50px;
-
-  display: flex;
-
-  gap: 40px;
-
-  color: white;
-
-  align-items: center;
+  color:white;
 }
 
-.avatar img {
-
-  width: 150px;
-
-  height: 150px;
-
-  border-radius: 50%;
-
-  border: 5px solid white;
+.hero-info{
+  width:100%;
 }
 
-.hero-info h1 {
-  font-size: 42px;
+.hero-info h1{
+  font-size:48px;
+
+  margin-bottom:35px;
 }
 
-.hero-buttons {
+/* GRID */
 
-  display: flex;
+.info-grid{
 
-  gap: 15px;
+  display:grid;
 
-  margin-top: 25px;
+  grid-template-columns:
+  repeat(2, minmax(240px,1fr));
+
+  gap:18px;
+
+  margin-bottom:35px;
 }
 
-.hero-buttons button {
+.info-item{
 
-  padding: 14px 26px;
+  background:
+  rgba(255,255,255,.12);
 
-  border: none;
+  border:
+  1px solid rgba(255,255,255,.18);
 
-  border-radius: 30px;
+  border-radius:18px;
 
-  cursor: pointer;
+  padding:18px 22px;
+
+  backdrop-filter:blur(8px);
+}
+
+.info-item span{
+
+  display:block;
+
+  font-size:13px;
+
+  opacity:.8;
+
+  margin-bottom:8px;
+
+  text-transform:uppercase;
+
+  letter-spacing:1px;
+}
+
+.info-item strong{
+
+  font-size:18px;
+
+  font-weight:600;
+
+  word-break:break-word;
+}
+
+.full{
+  grid-column:1 / -1;
+}
+
+/* BUTTONS */
+
+.hero-buttons{
+
+  display:flex;
+
+  gap:14px;
+
+  flex-wrap:wrap;
+}
+
+.hero-buttons button{
+
+  padding:14px 26px;
+
+  border:none;
+
+  border-radius:16px;
+
+  cursor:pointer;
+}
+
+/* MOBILE */
+
+@media (max-width:768px){
+
+  .info-grid{
+    grid-template-columns:1fr;
+  }
+
+  .hero-info h1{
+    font-size:34px;
+  }
+
 }
 
 /* STATS */
 
-.stats {
+.stats{
 
-  margin-top: 50px;
+  margin-top:40px;
 
-  display: grid;
+  display:grid;
 
   grid-template-columns:
-    repeat(auto-fit, minmax(220px, 1fr));
+  repeat(auto-fit,minmax(220px,1fr));
 
-  gap: 25px;
+  gap:24px;
 }
 
-.stat-card {
+.stat-card{
 
-  background: #f5f5f5;
+  background:white;
 
-  border: 2px solid #ff7300;
+  border:2px solid #ff7300;
 
-  border-radius: 30px;
+  border-radius:24px;
 
-  padding: 30px;
+  padding:30px;
 
-  text-align: center;
+  text-align:center;
 }
 
-.stat-card h2 {
-  color: #ff7300;
+.stat-card h2{
+
+  color:#ff7300;
+
+  margin-bottom:10px;
+
+  font-size:32px;
 }
 
 /* ADS */
 
-.profile-ads {
+.profile-ads{
 
-  margin-top: 60px;
+  margin-top:60px;
 }
 
-.profile-ads h1 {
+.profile-ads h1{
 
-  text-align: center;
+  text-align:center;
 
-  margin-bottom: 40px;
+  margin-bottom:35px;
 }
 
-.ads-grid {
+.ads-grid{
 
-  display: grid;
+  display:grid;
 
   grid-template-columns:
-    repeat(auto-fill, minmax(320px, 1fr));
+  repeat(auto-fill,minmax(320px,1fr));
 
-  gap: 30px;
+  gap:30px;
 }
 
-.ad-card {
+.ad-card{
 
-  background: white;
+  background:white;
 
-  border: 2px solid #ff7300;
+  border-radius:24px;
 
-  border-radius: 30px;
+  overflow:hidden;
 
-  overflow: hidden;
+  box-shadow:
+  0 8px 20px rgba(0,0,0,.08);
 
-  transition: .2s;
+  transition:.25s;
 }
 
-.ad-card:hover {
-  transform: translateY(-6px);
+.ad-card:hover{
+
+  transform:translateY(-6px);
 }
 
-.ad-card img {
+.ad-card img{
 
-  width: 100%;
+  width:100%;
 
-  height: 250px;
+  height:220px;
 
-  object-fit: cover;
+  object-fit:cover;
 }
 
-.card-content {
+.card-content{
 
-  padding: 20px;
+  padding:20px;
 }
 
-.card-buttons {
-
-  padding: 20px;
-
-  display: flex;
-
-  gap: 10px;
+.card-content h3{
+  margin-top:0;
 }
 
-.card-buttons button {
+.card-buttons{
 
-  flex: 1;
+  display:flex;
 
-  border: none;
+  gap:10px;
 
-  padding: 12px;
-
-  border-radius: 20px;
-
-  cursor: pointer;
+  padding:20px;
 }
 
-.edit-btn {
-  background: orange;
+.card-buttons button{
+
+  flex:1;
+
+  padding:12px;
+
+  border:none;
+
+  border-radius:14px;
+
+  cursor:pointer;
 }
 
-.delete-btn {
-  background: crimson;
-  color: white;
+.edit-btn{
+  background:#ff7300;
+  color:white;
 }
 
-.empty {
+.delete-btn{
+  background:crimson;
+  color:white;
+}
 
-  background: white;
+.empty{
 
-  border-radius: 30px;
+  background:white;
 
-  padding: 50px;
+  border-radius:24px;
 
-  text-align: center;
+  padding:50px;
+
+  text-align:center;
 }

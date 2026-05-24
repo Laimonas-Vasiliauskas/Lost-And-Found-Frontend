@@ -43,37 +43,59 @@
 
   <!-- HERO -->
 
-  <section class="profile-hero">
+<section class="profile-hero">
 
-    <div class="avatar">
-      <img
-        src="assets/icons/icons8-profile.gif"
-        alt="profile">
-    </div>
+  <div class="hero-info">
 
-    <div class="hero-info">
+    <h1>{{ username }}</h1>
 
-      <h1>{{ username }}</h1>
+    <div class="info-grid">
 
-      <p>{{ email }}</p>
+      <div class="info-item">
+        <span>El. paštas</span>
+        <strong>{{ email }}</strong>
+      </div>
 
-      <div class="hero-buttons">
-        <button id="edit-profile-btn">
-          Redaguoti profilį
-        </button>
+      <div class="info-item">
+        <span>Vardas</span>
+        <strong>{{ firstname }}</strong>
+      </div>
 
-        <button routerLink="/create-post">
-          Naujas skelbimas
-        </button>
+      <div class="info-item">
+        <span>Pavardė</span>
+        <strong>{{ lastname }}</strong>
+      </div>
+
+      <div class="info-item">
+        <span>Telefonas</span>
+        <strong>{{ phonenumber }}</strong>
+      </div>
+
+      <div class="info-item full">
+        <span>Miestas</span>
+        <strong>{{ city }}</strong>
       </div>
 
     </div>
 
-  </section>
+    <div class="hero-buttons">
+
+      <button id="edit-profile-btn">
+        Redaguoti profilį
+      </button>
+
+      <button routerLink="/create-post">
+        Naujas skelbimas
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
 
 
   <!-- STATS -->
-
   <section class="stats">
 
     <div class="stat-card">
@@ -95,7 +117,6 @@
 
 
   <!-- ADS -->
-
   <section class="profile-ads">
 
     <h1>Mano skelbimai</h1>
@@ -115,7 +136,6 @@
           }
 
           <div class="card-content">
-
             <h3>{{ ad.title }}</h3>
 
             <p>
@@ -125,16 +145,13 @@
             <small>
               {{ ad.categoryName }}
             </small>
-
           </div>
 
           <div class="card-buttons">
 
             <button
               [routerLink]="['/addinfo', ad.adID || ad.AdID || ad.id]">
-
               Peržiūrėti
-
             </button>
 
             <button class="edit-btn">

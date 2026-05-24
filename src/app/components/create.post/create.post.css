@@ -1,54 +1,25 @@
 .create-page {
-
   max-width: 1200px;
-
   margin: auto;
-
   padding: 50px;
 }
 
-/* HERO */
-
-.hero {
-
-  background: #ff7300;
-
-  color: white;
-
-  padding: 60px;
-
-  text-align: center;
-
-  border-radius: 40px;
-
-  margin-bottom: 40px;
-}
-
-.hero h1 {
-
-  font-size: 46px;
-
-  margin-bottom: 15px;
-}
-
-/* FORM */
-
+.hero,
 #post-form {
-
-  background: #f7f7f7;
-
-  border: 2px solid #ff7300;
-
-  border-radius: 40px;
-
-  padding: 50px;
+  max-width: 900px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
 }
-
+.hero{
+  height: 100px;
+}
 .form-grid {
 
   display: grid;
 
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
 
   gap: 40px;
 }
@@ -61,58 +32,54 @@ label {
 
   font-weight: 700;
 }
-
+* {
+  box-sizing: border-box;
+}
 input,
 textarea,
-select {
-
+select,
+.input,
+.custom-file {
   width: 100%;
-
   padding: 16px;
-
   margin-bottom: 25px;
-
   border-radius: 20px;
-
   border: 2px solid #ffd0b4;
+  background: white;
+  box-sizing: border-box;
+}
+textarea {
+  resize: none;
+  min-height: 220px;
+  appearance: none;
+}
 
+.preview-container {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+.preview img {
+  width: 100%;
+  max-height: 250px;
+  object-fit: contain;
+  border-style: dotted;
+  border-color: lightsalmon;
+}
+.custom-file {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 55px;
+  border: 1px solid lightsalmon;
+  border-radius: 20px;
+  cursor: pointer;
   background: white;
 }
-
-textarea {
-
-  resize: none;
-
-  min-height: 220px;
+.custom-file input {
+  display: none;
 }
-
-.upload {
-
-  border: 2px dashed #ff7300;
-
-  border-radius: 25px;
-
-  padding: 30px;
-
-  text-align: center;
-
-  cursor: pointer;
-}
-
-.preview {
-
-  margin-top: 20px;
-}
-
-.preview img {
-
-  width: 100%;
-
-  border-radius: 20px;
-
-  object-fit: cover;
-}
-
 .submit-btn {
 
   width: 100%;
@@ -161,4 +128,12 @@ font-size: 34px;
 
 }
 
+}
+#post-form input,
+#post-form textarea,
+#post-form select,
+#post-form .custom-file {
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
 }

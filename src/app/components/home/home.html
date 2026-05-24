@@ -1,20 +1,15 @@
-<!-- Jei prisijungęs -->
-@if (auth.isLoggedIn$ | async) {
+<nav>
+  <div>
+    <h1 class="logo">Lost & Found</h1>
+  </div>
 
-  <nav>
-    <div>
-      <h1 class="logo">Lost & Found</h1>
-    </div>
-
+  @if (auth.isLoggedIn$ | async) {
     <div class="nav-right">
       <div class="profile-container" (click)="toggleMenu()">
         <img src="assets/icons/icons8-profile.gif" alt="Profilis" class="avatar">
 
         @if (menuOpen()) {
-          <div 
-            class="dropdown" 
-            (click)="$event.stopPropagation()"
-          >
+          <div class="dropdown" (click)="$event.stopPropagation()">
             <p class="username">Sveikas, {{ user()?.username }}</p>
             <button routerLink="/profile">Profilis</button>
             <button routerLink="/create-post">Įkelti skelbimą</button>
@@ -23,101 +18,81 @@
         }
       </div>
     </div>
-  </nav>
-
-  <div class="hero hero-home">
-    <div>
-      <h1>Rask pamestus daiktus greičiau ir paprasčiau</h1>
-      <p>
-        Skelbk rastus arba pamestus daiktus, ieškok pagal vietą,
-        kategoriją ir datą.
-      </p>
-
- <div class="search-container">
-  <input
-    type="text"
-    [(ngModel)]="searchText"
-    (input)="applyFilters()"
-    placeholder="Ieškok daiktų..."
-  >
-
-  
-
-  <button class="btn" (click)="applyFilters()">Ieškoti</button>
-</div>
-    </div>
-  </div>
-
-  <div class="categories">
-    <h1>Kategorijos</h1>
-
-    <div class="category-list">
-  @for (category of categories(); track category.categoryID) {
-    <a class="category-item" [routerLink]="['/category']" [queryParams]="{ id: category.categoryID }">
-      <img [src]="getCategoryIcon(category.categoryName)" [alt]="category.categoryName">
-      <h3>{{ category.categoryName }}</h3>
-    </a>
-  }
-
-</div>
-  </div>
-
-  <div class="ads">
-    <h1>Naujausi Skelbimai</h1>
-
-<div class="ads-list">
-  @for (ad of filteredAds() | slice:0:4; track ad.adID) {
-    <div class="ad-item">
-      <div class="ad-overlay">
-        <button [routerLink]="['/addinfo', ad.adID]">Plačiau</button>
-      </div>
-      <div class="ad-content">
-        @if (ad.images?.length) {
-          <img
-            [src]="'https://localhost:7062/api/ads/image/' + ad.images[0]"
-            [alt]="ad.title"
-            width="200"
-          >
-        }
-        <h3>{{ ad.title }}</h3>
-        <p>{{ ad.description }}</p>
-        <p>{{ ad.location }}</p>
-      </div>
+  } @else {
+    <div class="buttons">
+      <button routerLink="/login" class="button">Prisijungti</button>
+      <button routerLink="/register" class="button">Registruotis</button>
     </div>
   }
+</nav>
+
+<div class="hero hero-home">
+  <div>
+    <h1>Rask pamestus daiktus greičiau ir paprasčiau</h1>
+    <p>
+      Skelbk rastus arba pamestus daiktus, ieškok pagal vietą,
+      kategoriją ir datą.
+    </p>
+
+    <div class="search-container">
+      <input
+        type="text"
+        [(ngModel)]="searchText"
+        (input)="applyFilters()"
+        placeholder="Ieškok daiktų..."
+      >
+
+      <button class="btn" (click)="applyFilters()">Ieškoti</button>
+    </div>
+  </div>
 </div>
+
+<div class="categories">
+  <h1>Kategorijos</h1>
+
+  <div class="category-list">
+    @for (category of categories(); track category.categoryID) {
+      <a class="category-item" [routerLink]="['/category']" [queryParams]="{ id: category.categoryID }">
+        <img [src]="getCategoryIcon(category.categoryName)" [alt]="category.categoryName">
+        <h3>{{ category.categoryName }}</h3>
+      </a>
+    }
   </div>
+</div>
 
-  <div class="contact">
-    <h1>Radai pamestus daiktus?</h1>
-    <p>
-      Padėk žmonėms greičiau atgauti savo daiktus. Įkelk skelbimą per
-      kelias sekundes ir pridėk nuotrauką, vietą bei aprašymą.
-    </p>
-    <button routerLink="/create-post">Įkelti skelbimą</button>
+<div class="ads">
+  <h1>Naujausi Skelbimai</h1>
+
+  <div class="ads-list">
+    @for (ad of filteredAds() | slice:0:4; track ad.adID) {
+      <div class="ad-item">
+        <div class="ad-overlay">
+          <button [routerLink]="['/addinfo', ad.adID]">Plačiau</button>
+        </div>
+
+        <div class="ad-content">
+          @if (ad.images?.length) {
+            <img
+              [src]="'https://localhost:7062/api/ads/image/' + ad.images[0]"
+              [alt]="ad.title"
+              width="200"
+            >
+          }
+
+          <h3>{{ ad.title }}</h3>
+          <p>{{ ad.description }}</p>
+          <p>{{ ad.location }}</p>
+        </div>
+      </div>
+    }
   </div>
+</div>
 
-<!-- Jei neprisijungęs -->
-} @else {
-
-  <nav>
-    <div>
-      <h1 class="logo">Lost & Found</h1>
-    </div>
-
-    <div>
-      <button routerLink="/login">Prisijungti</button>
-      <button routerLink="/register">Registruotis</button>
-    </div>
-  </nav>
-
-  <div class="contact">
-    <h1>Radai pamestus daiktus?</h1>
-    <p>
-      Padėk žmonėms greičiau atgauti savo daiktus. Įkelk skelbimą per
-      kelias sekundes ir pridėk nuotrauką, vietą bei aprašymą.
-    </p>
-    <button routerLink="/create-post">Įkelti skelbimą</button>
-  </div>
-
-}
+<div class="contact">
+  <h1>Radai pamestus daiktus?</h1>
+  <p>
+    Padėk žmonėms greičiau atgauti savo daiktus. Įkelk skelbimą per
+    kelias sekundes ir pridėk nuotrauką, vietą bei aprašymą.
+  </p>
+  <button routerLink="/create-post">Įkelti skelbimą</button>
+</div>

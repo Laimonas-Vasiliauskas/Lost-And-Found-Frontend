@@ -2,25 +2,32 @@
   align-items: normal;
 }
 .login-btn {
-  background: #f97316;
+  width: 150px;
 
-  color: white;
+  height: 50px;
 
-  border: none;
+  background: transparent;
+
+  color: #ff7417;
+
+  border: 2px solid #ff7417;
 
   padding: 12px 28px;
 
-  border-radius: 999px;
+  border-radius: 10px; 
+
+  font-weight: 700;
 
   cursor: pointer;
 
-  font-weight: 600;
+  transition: .2s ease;
 
-  transition: .2s;
+  font-size: 16px;
 }
 
 .login-btn:hover {
-  background: #ea580c;
+  background: #fff7ed;
+  transform: translateY(-2px);
 }
 
 /* FORM */
@@ -106,11 +113,13 @@
 
 .submit-btn {
 
-  width: 220px;
+  width: 100%;
 
   align-self: center;
 
-  margin-top: 10px;
+  margin-top: 26px;
+
+  margin-bottom: 10px;
 
   height: 56px;
 
@@ -166,5 +175,46 @@
   .logo {
     font-size: 30px;
   }
+
+}
+
+.hero-form h2 {
+
+    color: white;
+
+    text-align: center;
+
+    margin: 0;
+
+    font-size: 36px;
+}
+
+.subtitle {
+
+    text-align: center;
+
+    color: rgba(255,255,255,.85);
+
+    margin-top: 10px;
+
+    margin-bottom: 10px;
+}
+
+.bottom-text {
+
+    text-align: center;
+
+    color: white;
+    
+
+}
+
+.bottom-text a {
+
+    color: white;
+
+    font-weight: 700;
+
+    text-decoration: underline;
 
 }

@@ -14,6 +14,12 @@
 
   <form (ngSubmit)="register()">
 
+    <h2>Registracija</h2>
+
+    <p class="subtitle">
+      Sukurkite naują paskyrą
+    </p>
+
     @if (errorMessage) {
       <div class="error-message">
         {{ errorMessage }}
@@ -99,6 +105,14 @@
     <button type="submit" class="submit-btn">
       Registruotis
     </button>
+
+    <span class="bottom-text">
+    Turi paskyrą?
+
+    <a routerLink="/login">
+      Prisijungti
+    </a>
+  </span>
 
   </form>
 

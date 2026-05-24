@@ -1,23 +1,30 @@
 .login-btn {
-  background: #f97316;
+  width: 150px;
 
-  color: white;
+  height: 50px;
 
-  border: none;
+  background: transparent;
+
+  color: #ff7417;
+
+  border: 2px solid #ff7417;
 
   padding: 12px 28px;
 
-  border-radius: 999px;
+  border-radius: 10px; 
+
+  font-weight: 700;
 
   cursor: pointer;
 
-  font-weight: 600;
+  transition: .2s ease;
 
-  transition: .2s;
+  font-size: 16px;
 }
 
 .login-btn:hover {
-  background: #ea580c;
+  background: #fff7ed;
+  transform: translateY(-2px);
 }
 
 .hero {

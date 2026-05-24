@@ -16,10 +16,30 @@ export class Register {
   password = '';
   phonenumber ='';
   city ='';
+  errorMessage = '';
 
   constructor(private http: HttpClient) {}
 
   register() {
+    this.errorMessage = '';
+
+    const requiredFields = [
+      { value: this.firstname, label: 'Vardo' },
+      { value: this.lastname, label: 'Pavardės' },
+      { value: this.username, label: 'Vartotojo vardo' },
+      { value: this.email, label: 'El. pašto' },
+      { value: this.password, label: 'Slaptažodžio' },
+      { value: this.phonenumber, label: 'Tel. numerio' },
+      { value: this.city, label: 'Miesto' }
+    ];
+
+    const emptyField = requiredFields.find(field => !field.value.trim());
+
+    if (emptyField) {
+      this.errorMessage = `${emptyField.label} laukelis privalomas`;
+      return;
+    }
+
     const data = {
       firstname: this.firstname,
       lastname: this.lastname,

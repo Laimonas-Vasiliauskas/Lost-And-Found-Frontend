@@ -15,10 +15,25 @@ import { Router, RouterModule } from '@angular/router';
 export class Login {
   email = '';
   password = '';
+  errorMessage = '';
 
   constructor(private auth: AuthService, private router: Router) {}
 
   login() {
+    this.errorMessage = '';
+
+    const requiredFields = [
+      { value: this.email, label: 'El. pašto' },
+      { value: this.password, label: 'Slaptažodžio'}
+    ];
+
+    const emptyField = requiredFields.find(field => !field.value.trim());
+
+    if (emptyField) {
+      this.errorMessage = `${emptyField.label} laukelis privalomas`;
+      return;
+    }
+
     this.auth.login({
       email: this.email,
       password: this.password

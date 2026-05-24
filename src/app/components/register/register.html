@@ -9,15 +9,18 @@
   </nav>
 </header>
   <div class="hero hero-form">
-    <form (submit)="register()">
-  <input [(ngModel)]="firstname" name="firstname" placeholder="Firstname" />
-  <input [(ngModel)]="lastname" name="lastname" placeholder="Lastname" />
-  <input [(ngModel)]="username" name="username" placeholder="Username" />
-  <input [(ngModel)]="email" name="email" placeholder="Email" />
-  <input [(ngModel)]="password" name="password" type="password" placeholder="Password" />
-  <input [(ngModel)]="phonenumber" name="phonenumber" placeholder="Phonenumber" />
-  <input [(ngModel)]="city" name="city" placeholder="City" />
+    <form (ngSubmit)="register()">
+  @if (errorMessage) {
+    <p class="error-message">{{ errorMessage }}</p>
+  }
+
+  <input [(ngModel)]="firstname" name="firstname" placeholder="Vardas" required />
+  <input [(ngModel)]="lastname" name="lastname" placeholder="Pavardė" required />
+  <input [(ngModel)]="username" name="username" placeholder="Vartotojo vardas" required />
+  <input [(ngModel)]="email" name="email" placeholder="El. paštas" required />
+  <input [(ngModel)]="password" name="password" type="password" placeholder="Slaptažodis" required />
+  <input [(ngModel)]="phonenumber" name="phonenumber" placeholder="Tel. numeris" required />
+  <input [(ngModel)]="city" name="city" placeholder="Miestas" required />
   <button type="submit">Register</button>
 </form>
   </div>
-

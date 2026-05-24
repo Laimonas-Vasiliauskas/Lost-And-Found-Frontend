@@ -9,9 +9,13 @@
   </nav>
 </header>
   <div class="hero hero-form">
-    <form (submit)="login()">
-  <input [(ngModel)]="email" name="email" placeholder="Email" />
-  <input [(ngModel)]="password" name="password" type="password" placeholder="Password" />
+    <form (ngSubmit)="login()">
+  @if (errorMessage) {
+    <p class="error-message">{{ errorMessage }}</p>
+  }
+  
+  <input [(ngModel)]="email" name="email" placeholder="El. paštas" />
+  <input [(ngModel)]="password" name="password" type="password" placeholder="Slaptažodis" />
   <button type="submit">Login</button>
 </form>
   </div>

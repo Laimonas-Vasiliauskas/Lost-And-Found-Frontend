@@ -8,6 +8,7 @@ import { guestGuard } from './guards/guest.guard';
 import { Category } from './components/category/category';
 import { CreatePost } from './components/create.post/create.post';
 import { Addinfo } from './components/addinfo/addinfo';
+import { EditProfile } from './components/edit-profile/edit-profile';
 
 export const routes: Routes = [
   {
@@ -43,7 +44,11 @@ export const routes: Routes = [
     canActivate: [guestGuard]
   },
   {
-  path: 'addinfo/:id',
-  component: Addinfo
+    path: 'addinfo/:id',
+    component: Addinfo
+  },
+  {
+    path: 'edit-profile',
+    component: EditProfile
   }
 ];

@@ -1,0 +1,95 @@
+<header>
+  <nav>
+    <div class="nav-left">
+      <h1 routerLink="/home" class="logo">
+        Lost & Found
+      </h1>
+    </div>
+
+    <div class="nav-right">
+      <div class="profile-container" (click)="toggleMenu()">
+        <img src="assets/icons/icons8-profile.gif">
+
+        @if(menuOpen){
+        <div class="dropdown" (click)="$event.stopPropagation()">
+
+          <p class="username">
+            Sveikas, {{ user?.username }}
+          </p>
+
+          <button routerLink="/profile">
+            Profilis
+          </button>
+
+          <button routerLink="/create-post">
+            Įkelti skelbimą
+          </button>
+
+          <button
+            class="logout-btn"
+            (click)="logout()">
+            Atsijungti
+          </button>
+
+        </div>
+        }
+      </div>
+    </div>
+  </nav>
+</header>
+
+
+<main class="edit-profile-page">
+
+  <!-- HERO -->
+
+<section class="edit-hero">
+
+  <div class="hero-info">
+
+    <h1>{{ username }}</h1>
+
+    <div class="info-grid">
+
+      <div class="info-item">
+        <span>El. paštas</span>
+        <input type="text" [(ngModel)]="email" name="email">
+      </div>
+
+      <div class="info-item">
+        <span>Vardas</span>
+        <input type="text" [(ngModel)]="firstname" name="firstname">
+      </div>
+
+      <div class="info-item">
+        <span>Pavardė</span>
+        <input type="text" [(ngModel)]="lastname" name="lastname">
+      </div>
+
+      <div class="info-item">
+        <span>Telefonas</span>
+        <input type="text" [(ngModel)]="phonenumber" name="phonenumber">
+      </div>
+
+      <div class="info-item full">
+        <span>Miestas</span>
+        <input type="text" [(ngModel)]="city" name="city">
+      </div>
+
+      <div class="profile-actions">
+        <button type="button" (click)="saveProfile()">
+        Išsaugoti
+        </button>
+
+        <button type="button" routerLink="/profile">
+        Atšaukti
+        </button>
+       </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>

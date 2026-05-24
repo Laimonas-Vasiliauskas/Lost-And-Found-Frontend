@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { BehaviorSubject } from 'rxjs';
 
@@ -78,6 +78,8 @@ login(data: LoginRequest): Observable<AuthResponse> {
   );
 }
 
+
+
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
@@ -90,6 +92,21 @@ login(data: LoginRequest): Observable<AuthResponse> {
 
   isLoggedIn(): boolean {
     return !!this.getToken();
+  }
+
+  updateProfile(userData: any): Observable<any> {
+  const token = this.getToken();
+
+  const headers = new HttpHeaders({
+    Authorization: `Bearer ${token}`
+  });
+
+  return this.http.put<any>(`${this.apiUrl}/profile`, userData, { headers }).pipe(
+    tap((user: any) => {
+      localStorage.setItem('user', JSON.stringify(user));
+      this.loggedIn.next(true);
+    })
+  );
   }
 
   private loggedIn = new BehaviorSubject<boolean>(this.isLoggedIn());

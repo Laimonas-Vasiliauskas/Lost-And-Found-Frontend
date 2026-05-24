@@ -1,4 +1,6 @@
-
+.hero {
+  align-items: normal;
+}
 .login-btn {
   background: #f97316;
 
@@ -143,6 +145,8 @@
   border-radius: 6px;
 
   text-align: center;
+
+  margin-bottom: 26px;
 }
 
 /* MOBILE */

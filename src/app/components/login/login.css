@@ -1,0 +1,207 @@
+.login-btn {
+  background: #f97316;
+
+  color: white;
+
+  border: none;
+
+  padding: 12px 28px;
+
+  border-radius: 999px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  transition: .2s;
+}
+
+.login-btn:hover {
+  background: #ea580c;
+}
+
+.hero {
+    align-items: normal;
+}
+
+/* Kortelė */
+
+.hero-form {
+
+    width: 620px;
+
+    background: #ff7417;
+
+    padding: 50px;
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 18px 45px rgba(0,0,0,.12);
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 22px;
+}
+
+/* Tekstas */
+
+.hero-form h2 {
+
+    color: white;
+
+    text-align: center;
+
+    margin: 0;
+
+    font-size: 36px;
+}
+
+.subtitle {
+
+    text-align: center;
+
+    color: rgba(255,255,255,.85);
+
+    margin-top: 10px;
+
+    margin-bottom: 10px;
+}
+
+/* Laukai */
+
+.hero-field {
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+.hero-field label {
+
+    color: white;
+
+
+    margin-bottom: 8px;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    padding-left: 4px;
+}
+
+.hero-field input {
+
+    height: 56px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    padding: 0 18px;
+
+    background: #f5f5f5;
+
+    font-size: 15px;
+
+    box-sizing: border-box;
+}
+
+.hero-field input:focus {
+
+    outline: none;
+
+    box-shadow:
+        0 0 0 4px rgba(255,255,255,.25);
+}
+
+/* Mygtukas */
+
+.submit-btn {
+
+    width: 100%;
+
+    height: 56px;
+
+    margin-top: 26px;
+
+    margin-bottom: 10px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: white;
+
+    color: #ff7417;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: .2s;
+}
+
+.submit-btn:hover {
+
+    transform: translateY(-2px);
+
+    background: #fff7ed;
+}
+
+/* Apačia */
+
+.bottom-text {
+
+    text-align: center;
+
+    color: white;
+    
+
+}
+
+.bottom-text a {
+
+    color: white;
+
+    font-weight: 700;
+
+    text-decoration: underline;
+
+}
+
+/* Klaidos */
+
+.error-message {
+
+    background: rgba(255,255,255,.2);
+
+    color: white;
+
+    padding: 12px;
+
+    border-radius: 8px;
+
+    text-align: center;
+
+    margin-bottom: 26px;
+}
+
+@media (max-width:700px){
+
+.hero-form{
+
+width:90%;
+
+padding:35px;
+
+}
+
+}

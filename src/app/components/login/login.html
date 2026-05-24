@@ -1,21 +1,72 @@
 <header>
   <nav>
-    <div>
-      <h1 routerLink="/home" class="logo" style="cursor: pointer;">Lost & Found</h1>
-    </div>
-    <div>
-        <button routerLink="/register">Registruotis</button>
-    </div>
+    <h1 routerLink="/home" class="logo">
+      Lost & Found
+    </h1>
+
+    <button routerLink="/register" class="login-btn">
+      Registruotis
+    </button>
   </nav>
 </header>
-  <div class="hero hero-form">
-    <form (ngSubmit)="login()">
+
+
+
+<div class="hero hero-form">
+
+  <form (ngSubmit)="login()">
+
+  <h2>Prisijungimas</h2>
+
+  <p class="subtitle">
+    Prisijunkite prie savo paskyros
+  </p>
+
   @if (errorMessage) {
-    <p class="error-message">{{ errorMessage }}</p>
+    <div class="error-message">
+      {{ errorMessage }}
+    </div>
   }
-  
-  <input [(ngModel)]="email" name="email" placeholder="El. paštas" />
-  <input [(ngModel)]="password" name="password" type="password" placeholder="Slaptažodis" />
-  <button type="submit">Login</button>
-</form>
+
+  <div class="hero-field">
+
+    <label>El. paštas</label>
+
+    <input
+      [(ngModel)]="email"
+      name="email"
+      type="email"
+      placeholder="Įveskite el. paštą"
+      required
+    />
+
   </div>
+
+  <div class="hero-field">
+
+    <label>Slaptažodis</label>
+
+    <input
+      [(ngModel)]="password"
+      name="password"
+      type="password"
+      placeholder="Įveskite slaptažodį"
+      required
+    />
+
+  </div>
+
+  <button type="submit" class="submit-btn">
+    Prisijungti
+  </button>
+
+  <span class="bottom-text">
+    Neturi paskyros?
+
+    <a routerLink="/register">
+      Registruotis
+    </a>
+  </span>
+  </form>
+</div>
+

@@ -20,10 +20,6 @@
             Sveikas, {{ user?.username }}
           </p>
 
-          <button routerLink="/profile">
-            Profilis
-          </button>
-
           <button routerLink="/create-post">
             Įkelti skelbimą
           </button>
@@ -174,7 +170,7 @@
               Redaguoti
             </button>
 
-            <button class="delete-btn">
+            <button class="delete-btn" (click)="deleteAd(ad.adID || ad.AdID || ad.id)">
               Ištrinti
             </button>
 

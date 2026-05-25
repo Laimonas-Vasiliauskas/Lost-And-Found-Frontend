@@ -121,4 +121,21 @@ export class Profile implements OnInit {
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
+
+  deleteAd(adId: number) {
+    if (!confirm('Ar tikrai norite ištrinti šį skelbimą?')) {
+      return;
+    }
+
+    this.adService.deleteAd(adId).subscribe({
+      next: () => {
+        console.log('Ad deleted successfully');
+        this.loadUserAds(); // Reload the ads to reflect the deletion
+      },
+      error: (err) => {
+        console.error('Error deleting ad:', err);
+      }
+    });
+  }
+
 }

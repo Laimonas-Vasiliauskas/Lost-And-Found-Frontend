@@ -57,4 +57,14 @@ export class AdService {
     return this.http.get<Ad[]>(`${this.apiUrl}/category/${categoryId}`);
   }
 
+  deleteAd(id: number): Observable<any> {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.delete(`${this.apiUrl}/${id}`, { headers });
+  }
+
 }

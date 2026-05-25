@@ -16,10 +16,10 @@
 }
 
 .message{
-  background:#f1f1f1;
-  padding:10px;
-  border-radius:10px;
-  margin-bottom:10px;
+    background:#f1f1f1;
+    padding:10px;
+    border-radius:10px;
+    margin-bottom:10px;
 }
 
 .send-box{
@@ -35,4 +35,10 @@
 .send-box button{
   padding:10px 20px;
   cursor:pointer;
+}
+.message strong{
+  display:block;
+  margin-bottom:6px;
+  color:#444;
+  font-size:14px;
 }

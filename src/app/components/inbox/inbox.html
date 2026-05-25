@@ -32,8 +32,7 @@
   }
 
   @for (conv of conversations(); track conv.conversationID) {
-    <div class="conversation" (click)="openChat(conv.conversationID)">
-
+    <div class="conversation"[class.unread]="conv.hasUnread"(click)="openChat(conv.conversationID)">
       <img
         class="ad-image"
         [src]="'https://localhost:7062/api/Ads/image/' + conv.adImage"
@@ -45,7 +44,7 @@
 
         <p>{{ conv.lastMessage || 'Dar nėra žinučių' }}</p>
 
-        <small>{{ conv.lastMessageTime }}</small>
+        <small>{{ conv.lastMessageTime | date:'yyyy-MM-dd HH:mm' }}</small>
       </div>
 
     </div>

@@ -4,6 +4,7 @@
   background:white;
   padding:20px;
   border-radius:12px;
+  border:1px solid lightsalmon;
 }
 
 .messages{
@@ -12,6 +13,7 @@
   padding:15px;
   margin-bottom:15px;
   border-radius:10px;
+  border:1px solid lightsalmon;
   overflow-y:auto;
 }
 
@@ -20,21 +22,34 @@
     padding:10px;
     border-radius:10px;
     margin-bottom:10px;
+    border:1px solid lightsalmon;
 }
 
 .send-box{
   display:flex;
+  align-items:center;
   gap:10px;
+  width:100%;
 }
 
 .send-box input{
   flex:1;
-  padding:10px;
+  width:100%;
+  min-width:0;
+  padding:14px 18px;
+  border-radius:30px;
+  border:2px solid #ff7a00;
+  box-sizing:border-box;
 }
 
 .send-box button{
-  padding:10px 20px;
+  padding:14px 22px;
+  border:none;
+  border-radius:20px;
+  background:#ff7a00;
+  color:white;
   cursor:pointer;
+  margin: 0 0 15px;
 }
 .message strong{
   display:block;

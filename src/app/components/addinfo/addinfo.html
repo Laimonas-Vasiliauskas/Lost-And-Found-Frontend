@@ -1,3 +1,11 @@
+<nav>
+    <div class="nav-left">
+        <a class="home-link" href="home">
+            <img src="assets/icons/icons8-home.svg" alt="Pradžia">
+        </a>
+        <h1 routerLink="/home" class="logo" style="cursor: pointer;">Lost & Found</h1>
+    </div>
+</nav>
 @if (isLoading) {
   <div class="loading">
     <p>Loading ad information...</p>
@@ -9,8 +17,6 @@
   </div>
 } @else if (ad) {
   <div class="post-details">
-    <a routerLink="/home" class="back-link">← Grįšti</a>
-
     <div class="post-card">
 <div class="post-images">
   <img
@@ -30,23 +36,22 @@
     </div>
   }
 </div>
+<div class="post-info">
+  <h1>{{ ad.title }}</h1>
 
-      <div class="post-info">
-        <h1>{{ ad.title }}</h1>
-
-        <div class="meta">
-          <span>📅 {{ ad.createdAt | date:'yyyy-MM-dd HH:mm' }}</span>
-          <span>📍 {{ ad.location }}</span>
-          <span>🏷️ {{ ad.type }}</span>
-        </div>
-
-        <div class="description">
-          <h3>Aprašymas</h3>
-          <p>{{ ad.description }}</p>
-        </div>
-
-        <button class="btn" (click)="startChat()">Susisiekti</button>
-      </div>
-    </div>
+  <div class="meta">
+    <span>📅 {{ ad.createdAt | date:'yyyy-MM-dd HH:mm' }}</span>
+    <span>📍 {{ ad.location }}</span>
+    <span>🏷️ {{ ad.type }}</span>
   </div>
+
+  <div class="description">
+    <h3>Aprašymas</h3>
+    <p>{{ ad.description }}</p>
+  </div>
+
+  <button class="btn" (click)="startChat()">Susisiekti</button>
+</div>
+</div>
+</div>
 }

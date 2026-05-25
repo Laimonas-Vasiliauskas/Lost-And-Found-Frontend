@@ -1,3 +1,38 @@
+
+    <nav>
+        <div class="nav-left">
+            <h1 routerLink="/home" class="logo" style="cursor: pointer;">Lost & Found</h1>
+            <a class="home-link" href="home">
+                <img src="assets/icons/icons8-home.svg" alt="Pradžia">
+            </a>
+        </div>
+        <div class="nav-right">
+            <div class="profile-container" (click)="toggleMenu()">
+        <img src="assets/icons/icons8-profile.gif" alt="Profilis" class="avatar">
+
+        @if (menuOpen) {
+          <div 
+            class="dropdown" 
+            (click)="$event.stopPropagation()"
+          >
+            <p class="username">Sveikas, {{ user?.username }}</p>
+            <button routerLink="/profile">Profilis</button>
+            <button routerLink="/create-post">Įkelti skelbimą</button>
+            <button class="inbox-btn" routerLink="/inbox">Žinutės
+                @if (unreadCount() > 0) {
+                    <span class="badge">
+                    {{ unreadCount() }}
+                    </span>
+                }
+            </button>
+            <button (click)="logout()">Atsijungti</button>
+          </div>
+        }
+      </div>
+        </div>
+    </nav>
+
+
 <div class="chat-container">
 
   <h2>Pokalbis</h2>

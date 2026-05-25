@@ -1,12 +1,14 @@
 <header>
   <nav>
     <div class="nav-left">
-      <div class="category-list">
-    </div>
       <h1 routerLink="/home" class="logo">
         Lost & Found
       </h1>
+      <a class="home-link" href="home">
+                <img src="assets/icons/icons8-home.svg" alt="Pradžia">
+            </a>
     </div>
+    
     <div class="nav-right">
       <div class="profile-container" (click)="toggleMenu()">
         <img
@@ -41,12 +43,6 @@
     </div>
   </nav>
 </header>
-<div class="category-list">
-  <a class="category-item" href="home">
-      <img src="assets/icons/icons8-home.svg" alt="Pradžia">
-      <h3>Pradžia</h3>
-  </a>
-</div>
 <main class="create-page">
   <form
     id="post-form"

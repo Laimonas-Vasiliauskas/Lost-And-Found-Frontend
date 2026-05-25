@@ -2,6 +2,9 @@
     <nav>
         <div class="nav-left">
             <h1 routerLink="/home" class="logo" style="cursor: pointer;">Lost & Found</h1>
+            <a class="home-link" href="home">
+                <img src="assets/icons/icons8-home.svg" alt="Pradžia">
+            </a>
         </div>
         <div class="nav-right">
             <div class="profile-container" (click)="toggleMenu()">
@@ -33,10 +36,7 @@
     <div class="categories">
         <h1>Kategorijos</h1>
         <div class="category-list">
-            <a class="category-item" href="home">
-                <img src="assets/icons/icons8-home.svg" alt="Pradžia">
-                <h3>Pradžia</h3>
-            </a>
+            
             @for (category of categories(); track category.categoryID) {
             <a class="category-item" [routerLink]="['/category']" [queryParams]="{ id: category.categoryID }">
             <img [src]="getCategoryIcon(category.categoryName)" [alt]="category.categoryName">
@@ -52,7 +52,10 @@
         <div class="ads-list">
             @for (ad of ads(); track ad.adID) {
             <div class="ad-item">
-            
+              <div class="ad-overlay">
+                <button [routerLink]="['/addinfo', ad.adID]">Plačiau</button>
+              </div>
+
                 <div class="ad-content">
                     @if(ad.images?.length) {
                         <img [src]="'https://localhost:7062/api/ads/image/' + ad.images[0]"

@@ -1,19 +1,29 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, inject, OnInit, signal, OnDestroy } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ChatService } from '../../services/chat.service';
 import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'app-chat',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, RouterModule],
   templateUrl: './chat.html',
   styleUrl: './chat.css'
 })
-export class Chat implements OnInit {
+export class Chat implements OnInit, OnDestroy {
+
+  public user = JSON.parse(localStorage.getItem('user') || '{}');
+
+  menuOpen = false;
+
+  unreadCount = signal(0);
 
   private route = inject(ActivatedRoute);
   private chatService = inject(ChatService);
+  private destroy$ = new Subject<void>();
 
   conversationId!: number;
 
@@ -22,13 +32,35 @@ export class Chat implements OnInit {
   newMessage = '';
 
   ngOnInit(): void {
+    this.loadUnreadCount();
 
     this.conversationId = Number(
       this.route.snapshot.paramMap.get('id')
     );
 
     this.loadMessages();
+
+    this.auth.isLoggedIn$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        const userData = localStorage.getItem('user');
+        console.log('User data from localStorage:', userData);
+
+        const parsedUser = userData ? JSON.parse(userData) : null;
+        this.user.set(parsedUser);
+
+        if (parsedUser) {
+          this.loadUnreadCount();
+        } else {
+          this.unreadCount.set(0);
+        }
+      });
   }
+
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) {}
 
   loadMessages() {
 
@@ -64,4 +96,42 @@ export class Chat implements OnInit {
         }
     });
   }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+    console.log('User logged out');
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  loadUnreadCount() {
+      const token = localStorage.getItem('token');
+  
+      if (!token) {
+        this.unreadCount.set(0);
+        return;
+      }
+  
+      this.chatService.getUnreadCount()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: (res: any) => {
+            this.unreadCount.set(res.unreadCount ?? 0);
+          },
+          error: (err: any) => {
+            console.error('Unread count error:', err);
+            this.unreadCount.set(0);
+          }
+        });
+    }
+
+
 }

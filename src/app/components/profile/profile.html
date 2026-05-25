@@ -4,11 +4,14 @@
       <h1 routerLink="/home" class="logo">
         Lost & Found
       </h1>
+      <a class="home-link" href="home">
+                <img src="assets/icons/icons8-home.svg" alt="Pradžia">
+            </a>
     </div>
 
     <div class="nav-right">
       <div class="profile-container" (click)="toggleMenu()">
-        <img src="assets/icons/icons8-profile.gif">
+        <img src="assets/icons/icons8-profile.gif" alt="Profilis" class="avatar">
 
         @if(menuOpen){
         <div class="dropdown" (click)="$event.stopPropagation()">

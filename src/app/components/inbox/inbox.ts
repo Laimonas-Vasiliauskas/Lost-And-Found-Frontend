@@ -1,24 +1,31 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ChatService } from '../../services/chat.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService } from '../../services/auth.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-inbox',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterModule],
   templateUrl: './inbox.html',
   styleUrl: './inbox.css'
 })
 export class Inbox implements OnInit {
   private chatService = inject(ChatService);
-  private router = inject(Router);
-
+  public user = JSON.parse(localStorage.getItem('user') || '{}');
+  menuOpen = false;
   conversations = signal<any[]>([]);
 
   ngOnInit(): void {
     this.loadConversations();
   }
+
+  constructor(
+      private auth: AuthService,
+      private router: Router
+    ) {}
 
   loadConversations() {
     this.chatService.getMyConversations().subscribe({
@@ -34,4 +41,15 @@ export class Inbox implements OnInit {
   openChat(conversationID: number) {
     this.router.navigate(['/chat', conversationID]);
   }
+
+  toggleMenu() {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  logout() {
+    this.auth.logout();
+    this.router.navigate(['/login']);
+    console.log('User logged out');
+  }
+      
 }

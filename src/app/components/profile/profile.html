@@ -166,7 +166,8 @@
               Peržiūrėti
             </button>
 
-            <button class="edit-btn">
+            <button
+              [routerLink]="['/edit-ad', ad.adID || ad.AdID || ad.id]">
               Redaguoti
             </button>
 

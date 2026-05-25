@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 export interface Ad {
   adID?: number;
   userID?: number; // <-- PRIDĖK (labai svarbu)
+  categoryID?: number;
   title: string;
   description: string;
   location: string;
@@ -65,6 +66,16 @@ export class AdService {
     });
 
     return this.http.delete(`${this.apiUrl}/${id}`, { headers });
+  }
+
+  updateAd(id: number, data: Ad): Observable<any> {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+      Authorization: `Bearer ${token}`
+    });
+
+    return this.http.put(`${this.apiUrl}/${id}`, data, { headers });
   }
 
 }

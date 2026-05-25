@@ -11,6 +11,7 @@ import { Addinfo } from './components/addinfo/addinfo';
 import { EditProfile } from './components/edit-profile/edit-profile';
 import { Chat } from './components/chat/chat';
 import { Inbox } from './components/inbox/inbox';
+import { EditAd} from './components/edit-ad/edit-ad';
 
 export const routes: Routes = [
   {
@@ -60,5 +61,9 @@ export const routes: Routes = [
   {
     path: 'inbox',
     component: Inbox
+  },
+  {
+    path: 'edit-ad/:id',
+    component: EditAd
   }
 ];

@@ -138,4 +138,12 @@ export class Profile implements OnInit {
     });
   }
 
+  updateAd(adId: number) {
+    if (!confirm('Ar tikrai norite redaguoti šį skelbimą?')) {
+      return;
+    }
+
+
+}
+
 }

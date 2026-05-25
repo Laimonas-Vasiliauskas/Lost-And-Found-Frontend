@@ -1,0 +1,80 @@
+<main class="create-page">
+  <form
+    id="post-form"
+    (ngSubmit)="saveAd()"
+    #postForm="ngForm">
+
+    <div class="form-grid">
+      <div>
+        <label>Pavadinimas</label>
+        <input
+          type="text"
+          id="title"
+          name="title"
+          [(ngModel)]="title"
+          required
+          placeholder="Pvz. Rasti juodi akiniai">
+
+        <label>Aprašymas</label>
+        <textarea
+          id="description"
+          name="description"
+          [(ngModel)]="description"
+          required
+          rows="8"
+          placeholder="Aprašyk daiktą...">
+        </textarea>
+
+        <label class="custom-file">
+          Pasirinkti failą
+          <input
+            type="file"
+            accept="image/*"
+            (change)="onFileSelected($event)">
+        </label>
+      </div>
+
+      <div>
+        <label>Tipas</label>
+        <select name="type" [(ngModel)]="type" required>
+          <option value="">Pasirinkite</option>
+          <option value="found">Radau</option>
+          <option value="lost">Pamečiau</option>
+        </select>
+
+        <label>Kategorija</label>
+        <select name="categoryID" [(ngModel)]="categoryID" required>
+          <option [ngValue]="0">Pasirinkite</option>
+          <option [ngValue]="2">Elektronika</option>
+          <option [ngValue]="3">Apranga</option>
+          <option [ngValue]="4">Raktai</option>
+          <option [ngValue]="5">Dokumentai</option>
+          <option [ngValue]="1">Kita</option>
+        </select>
+
+        <label>Miestas</label>
+        <select name="location" [(ngModel)]="location" required>
+          <option value="">Pasirinkite</option>
+          <option>Vilnius</option>
+          <option>Kaunas</option>
+          <option>Klaipėda</option>
+          <option>Šiauliai</option>
+          <option>Panevėžys</option>
+        </select>
+
+        <div class="preview-container">
+          <div class="preview" *ngIf="previewUrl">
+            <img [src]="previewUrl">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+      class="submit-btn"
+      type="submit"
+      [disabled]="postForm.invalid">
+      Išsaugoti pakeitimus
+    </button>
+  </form>
+</main>

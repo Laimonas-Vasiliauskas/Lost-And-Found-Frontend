@@ -1,7 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, inject } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AdService } from '../../services/ads.service';
+import { ChatService } from '../../services/chat.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-addinfo',
@@ -10,6 +12,7 @@ import { AdService } from '../../services/ads.service';
   templateUrl: './addinfo.html',
   styleUrl: './addinfo.css',
 })
+
 export class Addinfo implements OnInit {
   ad: any = null;
   isLoading = true;
@@ -18,9 +21,25 @@ export class Addinfo implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private adService: AdService,
+    private chatService: ChatService,
+    private router: Router,
     private cdr: ChangeDetectorRef
   ) {}
 
+startChat() {
+  const adId = this.ad.adID ?? this.ad.adId ?? this.ad.adID;
+
+  this.chatService
+    .startConversation(adId)
+    .subscribe({
+      next: (res: any) => {
+        this.router.navigate(['/chat', res.conversationID]);
+      },
+      error: (err: any) => {
+        console.error(err);
+      }
+    });
+}
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
 

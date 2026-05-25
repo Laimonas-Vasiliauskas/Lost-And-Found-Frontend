@@ -5,11 +5,11 @@
 } @else if (errorMessage) {
   <div class="error">
     <p>{{ errorMessage }}</p>
-    <a routerLink="/home" class="back-link">← Back to Home</a>
+    <a routerLink="/home" class="back-link">← Grįšti į pagrindini puslapi</a>
   </div>
 } @else if (ad) {
   <div class="post-details">
-    <a routerLink="/home" class="back-link">← Back</a>
+    <a routerLink="/home" class="back-link">← Grįšti</a>
 
     <div class="post-card">
 <div class="post-images">
@@ -41,11 +41,11 @@
         </div>
 
         <div class="description">
-          <h3>Description</h3>
+          <h3>Aprašymas</h3>
           <p>{{ ad.description }}</p>
         </div>
 
-        <button class="btn">Contact</button>
+        <button class="btn" (click)="startChat()">Susisiekti</button>
       </div>
     </div>
   </div>

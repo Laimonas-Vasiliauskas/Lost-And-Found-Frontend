@@ -9,6 +9,8 @@ import { Category } from './components/category/category';
 import { CreatePost } from './components/create.post/create.post';
 import { Addinfo } from './components/addinfo/addinfo';
 import { EditProfile } from './components/edit-profile/edit-profile';
+import { Chat } from './components/chat/chat';
+import { Inbox } from './components/inbox/inbox';
 
 export const routes: Routes = [
   {
@@ -50,5 +52,13 @@ export const routes: Routes = [
   {
     path: 'edit-profile',
     component: EditProfile
+  },
+  {
+    path: 'chat/:id',
+    component: Chat
+  },
+  {
+    path: 'inbox',
+    component: Inbox
   }
 ];

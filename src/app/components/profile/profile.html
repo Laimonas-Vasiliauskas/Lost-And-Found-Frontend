@@ -25,6 +25,15 @@
             Įkelti skelbimą
           </button>
 
+          <button class="inbox-btn" routerLink="/inbox">
+            Žinutės
+              @if (unreadCount > 0) {
+            <span class="badge">
+              {{ unreadCount }}
+            </span>
+            }
+          </button>
+
           <button
             class="logout-btn"
             (click)="logout()">
@@ -82,6 +91,10 @@
 
       <button routerLink="/edit-profile">
         Redaguoti profilį
+      </button>
+
+      <button routerLink="/inbox">
+        Žinutės
       </button>
 
       <button routerLink="/create-post">

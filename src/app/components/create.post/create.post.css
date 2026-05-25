@@ -1,7 +1,6 @@
 .create-page {
   max-width: 1200px;
   margin: auto;
-  padding: 50px;
 }
 
 .hero,
@@ -10,7 +9,6 @@
   width: 100%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 50px;
 }
 .hero{
   height: 100px;
@@ -136,4 +134,65 @@ font-size: 34px;
   width: 100% !important;
   max-width: none !important;
   box-sizing: border-box !important;
+}
+.inbox-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.badge {
+  background: red;
+  color: white;
+  min-width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: bold;
+}
+header {
+  background: white;
+  height: 100px;
+}
+
+nav {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 50px;
+}
+
+.logo {
+  color: #ff5a00;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.nav-left {
+  display: flex;
+  align-items: center;
+}
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+body {
+  margin: 0;
+  background: #fff7ee;
+}
+.category-list {
+    display: flex;
+    width: 60%;
 }

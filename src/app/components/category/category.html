@@ -15,6 +15,13 @@
             <p class="username">Sveikas, {{ user?.username }}</p>
             <button routerLink="/profile">Profilis</button>
             <button routerLink="/create-post">Įkelti skelbimą</button>
+            <button class="inbox-btn" routerLink="/inbox">Žinutės
+                @if (unreadCount > 0) {
+                    <span class="badge">
+                    {{ unreadCount }}
+                    </span>
+                }
+            </button>
             <button (click)="logout()">Atsijungti</button>
           </div>
         }

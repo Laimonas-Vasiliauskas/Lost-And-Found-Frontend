@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Router } from '@angular/router';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'app-create-post',
@@ -13,6 +14,8 @@ import { RouterModule } from '@angular/router';
 })
 export class CreatePost {
   menuOpen = false;
+  unreadCount = 0;
+
   categoryID = 1;
   type = '';
   location = '';
@@ -21,9 +24,31 @@ export class CreatePost {
 
   selectedFile: File | null = null;
   previewUrl: string | null = null;
-  
 
-  constructor(private http: HttpClient) {}
+  user = JSON.parse(localStorage.getItem('user') || '{}');
+
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private chatService: ChatService
+  ) {
+    this.loadUnreadCount();
+  }
+
+  loadUnreadCount(): void {
+    this.chatService.getUnreadCount().subscribe({
+      next: (res: any) => {
+        this.unreadCount = res.unreadCount;
+      },
+      error: (err: any) => {
+        console.error('Unread count error:', err);
+      }
+    });
+  }
+
+  goTo(path: string): void {
+    this.router.navigate([path]);
+  }
 
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
@@ -31,11 +56,9 @@ export class CreatePost {
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
       this.previewUrl = URL.createObjectURL(this.selectedFile);
-    }
-    else {
-    // If the user clears the selection, reset these
-    this.selectedFile = null;
-    this.previewUrl = null;
+    } else {
+      this.selectedFile = null;
+      this.previewUrl = null;
     }
   }
 
@@ -56,14 +79,12 @@ export class CreatePost {
   }
 
   onSubmit() {
-    // 1. Check if file is empty
     if (!this.selectedFile) {
-      alert('Prašome pasirinkti nuotrauką!'); // "Please select a photo!"
+      alert('Prašome pasirinkti nuotrauką!');
       return;
     }
 
     const token = localStorage.getItem('token');
-    console.log('TOKEN:', token);
 
     if (!token) {
       console.error('Token nerastas');
@@ -85,14 +106,11 @@ export class CreatePost {
     this.http.post<any>('https://localhost:7062/api/Ads', body, { headers })
       .subscribe({
         next: (adRes) => {
-          console.log('Skelbimas sukurtas:', adRes);
-
           const adId = adRes.adID;
 
           if (this.selectedFile) {
             this.uploadImage(token, adId).subscribe({
-              next: (uploadRes) => {
-                console.log('Nuotrauka įkelta:', uploadRes);
+              next: () => {
                 alert('Skelbimas su nuotrauka sukurtas!');
 
                 this.categoryID = 1;
@@ -107,8 +125,6 @@ export class CreatePost {
                 console.error('Klaida įkeliant nuotrauką:', err);
               }
             });
-          } else {
-            alert('Skelbimas sukurtas!');
           }
         },
         error: (err) => {
@@ -116,12 +132,14 @@ export class CreatePost {
         }
       });
   }
+
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
   }
+
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    this.router.navigate(['/login']);
   }
-  user = JSON.parse(localStorage.getItem('user') || '{}');
 }

@@ -1,0 +1,27 @@
+<div class="inbox-container">
+  <h2>Mano pokalbiai</h2>
+
+  @if (conversations().length === 0) {
+    <p>Pokalbių dar nėra.</p>
+  }
+
+  @for (conv of conversations(); track conv.conversationID) {
+    <div class="conversation" (click)="openChat(conv.conversationID)">
+
+      <img
+        class="ad-image"
+        [src]="'https://localhost:7062/api/Ads/image/' + conv.adImage"
+        alt="Skelbimo nuotrauka"
+      >
+
+      <div class="conversation-info">
+        <h3>{{ conv.adTitle }}</h3>
+
+        <p>{{ conv.lastMessage || 'Dar nėra žinučių' }}</p>
+
+        <small>{{ conv.lastMessageTime }}</small>
+      </div>
+
+    </div>
+  }
+</div>

@@ -1,0 +1,48 @@
+.inbox-container {
+  max-width: 800px;
+  margin: 30px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+}
+
+.conversation {
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  transition: 0.2s;
+  display:flex;
+  gap:15px;
+  align-items:center;
+}
+
+.conversation:hover {
+  background: #f5f5f5;
+}
+
+.conversation h3 {
+  margin: 0 0 5px;
+}
+
+.conversation p {
+  margin: 0 0 5px;
+  color: #444;
+}
+
+.conversation small {
+  color: gray;
+}
+
+.ad-image{
+  width:80px;
+  height:80px;
+  object-fit:cover;
+  border-radius:10px;
+  flex-shrink:0;
+}
+
+.conversation-info{
+  flex:1;
+}

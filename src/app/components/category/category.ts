@@ -1,7 +1,8 @@
 import { Component, inject, signal, OnInit } from '@angular/core';
 import { CategoriesService, Category as CategoryModel } from '../../services/categories.service';
-import { AdService} from '../../services/ads.service'; // Tarkime, turi tokį servisą
-import { RouterModule, ActivatedRoute } from '@angular/router';
+import { AdService } from '../../services/ads.service';
+import { ChatService } from '../../services/chat.service';
+import { RouterModule, ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-category',
@@ -12,72 +13,82 @@ import { RouterModule, ActivatedRoute } from '@angular/router';
 })
 export class Category implements OnInit {
   menuOpen = false;
-  // Signalai duomenims
+
   categories = signal<CategoryModel[]>([]);
-  ads = signal<any[]>([]); // Skelbimų sąrašas
+  ads = signal<any[]>([]);
   selectedCategoryName = signal<string>('Visi skelbimai');
 
-  // Servisai
+  unreadCount = 0;
+
+  user = JSON.parse(localStorage.getItem('user') || '{}');
+
   private categoriesService = inject(CategoriesService);
-  private adService = inject(AdService); // Reikės susikurti/naudoti AdsService
+  private adService = inject(AdService);
+  private chatService = inject(ChatService);
   private route = inject(ActivatedRoute);
+  private router = inject(Router);
 
   ngOnInit(): void {
-    // 1. Užkrauname kategorijas (tavo esamas kodas)
+    this.loadUnreadCount();
+
     this.categoriesService.getCategories().subscribe({
       next: (data) => this.categories.set(data),
       error: (err) => console.error('Failed to load categories', err),
     });
 
-    // 2. Stebime Query parametrus (?id=...)
-    // Kiekvieną kartą pasikeitus ID, Angular automatiškai vykdys šį kodą
     this.route.queryParams.subscribe(params => {
       const categoryId = params['id'];
       this.loadAds(categoryId);
     });
   }
 
-  loadAds(categoryId?: string) {
-  // Patikriname: ar ID neegzistuoja, arba ar ID yra lygus "1"
-  if (!categoryId || categoryId === '1') {
-    
-    // 1 variantas: Krauname VISUS skelbimus
-    this.adService.getAds().subscribe({
-      next: (data) => {
-        this.ads.set(data);
-        this.selectedCategoryName.set('Visi skelbimai');
+  loadUnreadCount(): void {
+    this.chatService.getUnreadCount().subscribe({
+      next: (res: any) => {
+        this.unreadCount = res.unreadCount;
       },
-      error: (err) => console.error('Klaida kraunant visus skelbimus', err)
-    });
-
-  } else {
-    
-    // 2 variantas: Krauname specifinę kategoriją
-    this.adService.getAdsByCategoryId(categoryId).subscribe({
-      next: (data) => {
-        this.ads.set(data);
-        
-        // Surandame pavadinimą iš turimų kategorijų sąrašo
-        const cat = this.categories().find(c => c.categoryID === +categoryId);
-        if (cat) {
-          this.selectedCategoryName.set(cat.categoryName);
-        }
-      },
-      error: (err) => console.error('Klaida kraunant kategorijos skelbimus', err)
+      error: (err: any) => {
+        console.error('Unread count error:', err);
+      }
     });
   }
-}
 
-  getCategoryIcon(name: string) {
+  loadAds(categoryId?: string): void {
+    if (!categoryId || categoryId === '1') {
+      this.adService.getAds().subscribe({
+        next: (data) => {
+          this.ads.set(data);
+          this.selectedCategoryName.set('Visi skelbimai');
+        },
+        error: (err) => console.error('Klaida kraunant visus skelbimus', err)
+      });
+    } else {
+      this.adService.getAdsByCategoryId(categoryId).subscribe({
+        next: (data) => {
+          this.ads.set(data);
+
+          const cat = this.categories().find(c => c.categoryID === +categoryId);
+
+          if (cat) {
+            this.selectedCategoryName.set(cat.categoryName);
+          }
+        },
+        error: (err) => console.error('Klaida kraunant kategorijos skelbimus', err)
+      });
+    }
+  }
+
+  getCategoryIcon(name: string): string {
     return this.categoriesService.getIcon(name);
   }
 
-  toggleMenu() {
+  toggleMenu(): void {
     this.menuOpen = !this.menuOpen;
   }
-  logout() {
+
+  logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
+    this.router.navigate(['/login']);
   }
-  user = JSON.parse(localStorage.getItem('user') || '{}');
 }

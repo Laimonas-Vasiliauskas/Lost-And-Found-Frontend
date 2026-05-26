@@ -66,6 +66,10 @@ export class EditAd implements OnInit {
   }
 
   saveAd(): void {
+    if (!confirm('Ar tikrai norite atnaujinti šį skelbimą?')) {
+      return;
+    }
+
   const formData = new FormData();
 
   formData.append('categoryID', String(this.categoryID));

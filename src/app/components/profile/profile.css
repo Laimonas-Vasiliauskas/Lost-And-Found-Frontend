@@ -144,42 +144,6 @@ main{
 
 }
 
-/* STATS */
-
-.stats{
-
-  margin-top:40px;
-
-  display:grid;
-
-  grid-template-columns:
-  repeat(auto-fit,minmax(220px,1fr));
-
-  gap:24px;
-}
-
-.stat-card{
-
-  background:white;
-
-  border:2px solid #ff7300;
-
-  border-radius:24px;
-
-  padding:30px;
-
-  text-align:center;
-}
-
-.stat-card h2{
-
-  color:#ff7300;
-
-  margin-bottom:10px;
-
-  font-size:32px;
-}
-
 /* ADS */
 
 .profile-ads{
@@ -218,16 +182,11 @@ main{
   transition:.25s;
 }
 
-.ad-card:hover{
-
-  transform:translateY(-6px);
-}
-
 .ad-card img{
 
-  width:100%;
+  width:300px;
 
-  height:220px;
+  height:300px;
 
   object-fit:cover;
 }
@@ -303,5 +262,11 @@ main{
   justify-content: center;
   font-size: 12px;
   font-weight: bold;
+}
+
+.card-buttons button:hover {
+
+  transform: translateY(-2px);
+
 }
 

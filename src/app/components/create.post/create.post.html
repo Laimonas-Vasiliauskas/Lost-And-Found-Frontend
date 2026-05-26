@@ -46,9 +46,16 @@
     id="post-form"
     (ngSubmit)="onSubmit()"
     #postForm="ngForm">
+    @if (errorMessage) {
+          <div class="error-message">
+            {{ errorMessage }}
+          </div>
+        }
     <div class="form-grid">
       <!-- LEFT -->
+       
       <div>
+        
         <label>Pavadinimas</label>
         <input
           type="text"
@@ -94,6 +101,9 @@
           <option [ngValue]="0">
             Pasirinkite
           </option>
+          <option [ngValue]="1">
+            Kita
+          </option>
           <option [ngValue]="2">
             Elektronika
           </option>
@@ -106,7 +116,6 @@
           <option [ngValue]="5">
             Dokumentai
           </option>
-          <option [ngValue]="1">Kita</option>
         </select>
         <label>Miestas</label>
         <select name="location"[(ngModel)]="location">

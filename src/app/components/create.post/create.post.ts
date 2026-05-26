@@ -16,11 +16,12 @@ export class CreatePost {
   menuOpen = false;
   unreadCount = 0;
 
-  categoryID = 1;
+  categoryID = 0;
   type = '';
   location = '';
   title = '';
   description = '';
+  errorMessage = '';
 
   selectedFile: File | null = null;
   previewUrl: string | null = null;
@@ -79,8 +80,29 @@ export class CreatePost {
   }
 
   onSubmit() {
+    this.errorMessage = '';
+
+    const requiredFields = [
+      { value: this.type, label: 'Tipo' },
+      { value: this.location, label: 'Miesto' },
+      { value: this.title, label: 'Pavadinimo' },
+      { value: this.description, label: 'Aprašymo' }
+    ];
+
+    const emptyField = requiredFields.find(field => !field.value.trim());
+
+    if (emptyField) {
+      this.errorMessage = `${emptyField.label} laukelis privalomas`;
+      return;
+    }
+
+    if (!this.categoryID) {
+    this.errorMessage = 'Kategorijos laukelis privalomas';
+    return;
+    }
+
     if (!this.selectedFile) {
-      alert('Prašome pasirinkti nuotrauką!');
+      this.errorMessage = 'Nuotraukos laukelis privalomas';
       return;
     }
 
@@ -113,13 +135,14 @@ export class CreatePost {
               next: () => {
                 alert('Skelbimas su nuotrauka sukurtas!');
 
-                this.categoryID = 1;
+                this.categoryID = 0;
                 this.type = '';
                 this.location = '';
                 this.title = '';
                 this.description = '';
                 this.selectedFile = null;
                 this.previewUrl = null;
+                this.errorMessage = '';
               },
               error: (err) => {
                 console.error('Klaida įkeliant nuotrauką:', err);
@@ -131,6 +154,7 @@ export class CreatePost {
           console.error('Klaida kuriant skelbimą:', err);
         }
       });
+  
   }
 
   toggleMenu() {

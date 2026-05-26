@@ -130,20 +130,12 @@ export class Profile implements OnInit {
     this.adService.deleteAd(adId).subscribe({
       next: () => {
         console.log('Ad deleted successfully');
-        this.loadUserAds(); // Reload the ads to reflect the deletion
+        this.loadUserAds(); 
       },
       error: (err) => {
         console.error('Error deleting ad:', err);
       }
     });
   }
-
-  updateAd(adId: number) {
-    if (!confirm('Ar tikrai norite redaguoti šį skelbimą?')) {
-      return;
-    }
-
-
-}
 
 }

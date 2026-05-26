@@ -143,6 +143,8 @@ export class CreatePost {
                 this.selectedFile = null;
                 this.previewUrl = null;
                 this.errorMessage = '';
+
+                window.location.reload();
               },
               error: (err) => {
                 console.error('Klaida įkeliant nuotrauką:', err);

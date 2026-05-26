@@ -50,3 +50,49 @@
   font-size: 12px;
   font-weight: bold;
 }
+
+.ads-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+
+    width: 80%;
+    margin: 50px auto;
+}
+
+.ad-item {
+    background: white;
+    border: 1px solid #f97316;
+    border-radius: 30px;
+
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+
+    min-height: 420px;
+}
+
+.ad-content p:first-of-type {
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* max 3 eilutės */
+    -webkit-box-orient: vertical;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    word-break: break-word;
+}
+
+.ad-content img {
+    width: 100%;
+    height: 220px;
+
+    object-fit: cover;
+
+    border-radius: 20px;
+}
+
+.ad-content {
+    overflow-wrap: break-word;
+}

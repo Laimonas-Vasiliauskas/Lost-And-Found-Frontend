@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -17,7 +17,11 @@ export class Login {
   password = '';
   errorMessage = '';
 
-  constructor(private auth: AuthService, private router: Router) {}
+  constructor(
+    private auth: AuthService,
+    private router: Router,
+    private cd: ChangeDetectorRef
+  ) {}
 
   login() {
     this.errorMessage = '';
@@ -34,8 +38,15 @@ export class Login {
       return;
     }
 
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(this.email.trim())) {
+      this.errorMessage = 'Neteisingas el. pašto formatas';
+      this.cd.detectChanges();
+      return;
+    }
+
     this.auth.login({
-      email: this.email,
+      email: this.email.trim(),
       password: this.password
     }).subscribe({
       next: (res) => {
@@ -58,6 +69,12 @@ export class Login {
       },
       error: (err) => {
         console.error('LOGIN ERROR:', err);
+        if (err?.status === 401 || err?.status === 400) {
+          this.errorMessage = 'Neteisingas el. paštas arba slaptažodis';
+        } else {
+          this.errorMessage = 'Prisijungti nepavyko. Bandykite dar kartą.';
+        }
+        this.cd.detectChanges();
       }
     });
   }

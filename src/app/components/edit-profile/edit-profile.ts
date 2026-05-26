@@ -66,6 +66,9 @@ export class EditProfile {
   }
 
   saveProfile() {
+    if (!confirm('Ar tikrai norite atnaujinti savo profilį?')) {
+      return;
+    }
     const updatedUser = {
       username: this.username,
       email: this.email,

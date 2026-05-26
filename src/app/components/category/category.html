@@ -58,13 +58,12 @@
 
                 <div class="ad-content">
                     @if(ad.images?.length) {
-                        <img [src]="'https://localhost:7062/api/ads/image/' + ad.images[0]"
-                        [alt]="ad.title"
-                        width="200">
+                        <img class="ad-image" [src]="'https://localhost:7062/api/ads/image/' + ad.images[0]"
+                        [alt]="ad.title">
                     }
                     <h3>{{ ad.title }}</h3>
                     <p>{{ ad.description }}</p>
-                    <strong>{{ ad.price }} €</strong>
+                    <p>{{ ad.location }}</p>
                 </div>
              
             </div>

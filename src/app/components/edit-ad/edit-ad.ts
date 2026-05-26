@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Router, ActivatedRoute } from '@angular/router';
@@ -12,7 +12,7 @@ import { AdService, Ad } from '../../services/ads.service';
   templateUrl: './edit-ad.html',
   styleUrl: './edit-ad.css',
 })
-export class EditAd {
+export class EditAd implements OnInit {
   menuOpen = false;
   unreadCount = 0;
 
@@ -34,8 +34,11 @@ export class EditAd {
     private router: Router,
     private route: ActivatedRoute,
     private adService: AdService,
-    private chatService: ChatService
-  ) {
+    private chatService: ChatService,
+    private cd: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
     this.loadUnreadCount();
 
     this.adId = Number(this.route.snapshot.paramMap.get('id'));
@@ -53,6 +56,8 @@ export class EditAd {
         if (ad.images?.length) {
           this.previewUrl = `https://localhost:7062/api/ads/image/${ad.images[0]}`;
         }
+
+        this.cd.detectChanges();
       },
       error: (err) => {
         console.error('Nepavyko gauti skelbimo:', err);
@@ -61,25 +66,28 @@ export class EditAd {
   }
 
   saveAd(): void {
-    const updatedAd: Ad = {
-      categoryID: Number(this.categoryID),
-      type: this.type,
-      location: this.location,
-      title: this.title,
-      description: this.description,
-      userID: this.user?.id ?? this.user?.userID ?? this.user?.userId,
-      images: this.currentAd?.images
-    };
+  const formData = new FormData();
 
-    this.adService.updateAd(this.adId, updatedAd).subscribe({
-      next: () => {
-        this.router.navigate(['/profile']);
-      },
-      error: (err) => {
-        console.error('Nepavyko atnaujinti skelbimo:', err);
-      }
-    });
+  formData.append('categoryID', String(this.categoryID));
+  formData.append('type', this.type);
+  formData.append('location', this.location);
+  formData.append('title', this.title);
+  formData.append('description', this.description);
+  formData.append('userID', String(this.user?.id ?? this.user?.userID ?? this.user?.userId));
+
+  if (this.selectedFile) {
+    formData.append('Image', this.selectedFile);
   }
+
+  this.adService.updateAd(this.adId, formData).subscribe({
+    next: () => {
+      this.router.navigate(['/profile']);
+    },
+    error: (err) => {
+      console.error('Nepavyko atnaujinti skelbimo:', err);
+    }
+  });
+}
 
   loadUnreadCount(): void {
     this.chatService.getUnreadCount().subscribe({

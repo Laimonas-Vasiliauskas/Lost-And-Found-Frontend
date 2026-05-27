@@ -108,10 +108,8 @@ export class Home implements OnInit, OnDestroy {
   logout() {
     this.auth.logout();
     this.user.set(null);
-    this.categories.set([]);
-    this.ads.set([]);
-    this.filteredAds.set([]);
     this.unreadCount.set(0);
+    this.loadAds();
   }
 
   toggleMenu() {
